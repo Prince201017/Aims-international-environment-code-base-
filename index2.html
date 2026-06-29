@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Recruitment Onboarding Form</title>
+    <style>
+        :root {
+            --primary-color: #2b6cb0;
+            --secondary-color: #4a5568;
+            --bg-color: #f7fafc;
+            --form-bg: #ffffff;
+            --border-color: #cbd5e0;
+            --error-color: #e53e3e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--secondary-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--form-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        fieldset {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            padding: 5px 0;
+        }
+
+        .file-hint {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 2px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #1a5276;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Teacher Recruitment Application Form</h2>
+    <form id="teacherForm" enctype="multipart/form-data">
+        
+        <!-- Personal Information -->
+        <fieldset>
+            <legend>1. Personal Information</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth *</label>
+                    <input type="date" id="dob" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Academic Credentials -->
+        <fieldset>
+            <legend>2. Academic & Professional Qualifications</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="highestDegree">Highest Academic Degree *</label>
+                    <select id="highestDegree" required>
+                        <option value="">Select Degree</option>
+                        <option value="bachelors">Bachelor's Degree</option>
+                        <option value="masters">Master's Degree</option>
+                        <option value="phd">Ph.D. / Doctorate</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="teachingCert">Teaching Certification Type *</label>
+                    <input type="text" id="teachingCert" placeholder="e.g., B.Ed, M.Ed, PGCE, State License" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="tetScore">Eligibility Test Score (TET/CTET/NET if applicable)</label>
+                    <input type="text" id="tetScore">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Document Uploads -->
+        <fieldset>
+            <legend>3. Document Upload Section (PDF/Image formats only)</legend>
+            
+            <div class="form-group">
+                <label for="resumeFile">Updated Resume / CV *</label>
+                <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" required>
+                <span class="file-hint">Max size: 5MB</span>
+            </div>
+
+            <div class="form-group">
+                <label for="degreeFile">Degree Certificate (Highest Qualification) *</label>
+                <input type="file" id="degreeFile" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+
+            <div class="form-group">
+                <label for="transcriptFile">Graduation Transcripts / Mark Sheets *</label>
+                <input type="file" id="transcriptFile" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+
+            <div class="form-group">
+                <label for="teachingCertFile">Teaching Degree / License Certificate *</label>
+                <input type="file" id="teachingCertFile" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+
+            <div class="form-group">
+                <label for="experienceFile">Previous Work Experience / Relieving Letters</label>
+                <input type="file" id="experienceFile" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                <span class="file-hint">You can select multiple files</span>
+            </div>
+
+            <div class="form-group">
+                <label for="idFile">Government Issued Identity Proof *</label>
+                <input type="file" id="idFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                <span class="file-hint">Aadhaar, Passport, PAN, or Driver's License</span>
+            </div>
+
+            <div class="form-group">
+                <label for="bgCheckFile">Background Check / Police Clearance Certificate</label>
+                <input type="file" id="bgCheckFile" accept=".pdf,.jpg,.jpeg,.png">
+            </div>
+
+            <div class="form-group">
+                <label for="medicalFile">Medical Fitness Certificate</label>
+                <input type="file" id="medicalFile" accept=".pdf,.jpg,.jpeg,.png">
+            </div>
+
+            <div class="form-group">
+                <label for="photoFile">Recent Passport Size Photograph *</label>
+                <input type="file" id="photoFile" accept=".jpg,.jpeg,.png" required>
+            </div>
+        </fieldset>
+
+        <button type="submit">Submit Application & Documents</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('teacherForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Target all file input elements
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        let valid = true;
+
+        // Front-end validation for file sizes
+        fileInputs.forEach(input => {
+            if (input.files.length > 0) {
+                for (let i = 0; i < input.files.length; i++) {
+                    if (input.files[i].size > maxSize) {
+                        alert(`The file "${input.files[i].name}" exceeds the 5MB size limit.`);
+                        valid = false;
+                    }
+                }
+            }
+        });
+
+        if (!valid) return;
+
+        // Collect all standard input data (Excluding files for basic verification)
+        alert('Form validated successfully! In a real system, files and data would now upload to your school server database.');
+        
+        // Log basic fields to console as proof of concept
+        console.log("Teacher Name:", document.getElementById('fullName').value);
+        console.log("Email:", document.getElementById('email').value);
+        console.log("Highest Degree:", document.getElementById('highestDegree').value);
+        
+        // Reset form after submission
+        this.reset();
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aims International School</title>
+  <link rel="icon" type="image/png" href="/Resource /head.img/unnamed.png">
+  <meta name="theme-color" content="#FFD648">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    /* =============================================
+       ROOT VARIABLES
+    ============================================= */
+    :root {
+      --bg: #ffffff;
+      --panel: #523d35;
+      --card: #f1f5f9;
+      --muted: #6b7280;
+      --accent: #829C00;
+      --gap: 12px;
+      --radius: 12px;
+      --header-h: 56px;
+    }
+
+
+    /* =============================================
+       HEADER
+    ============================================= */
+    header {
+      background: var(--panel);
+      padding: 0 12px;
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+    }
+
+    
+    
+    .brand h1 { margin: 0; font-size: clamp(14px, 2.5vw, 18px); color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Header right icons */
+    .header-actions { display: flex; align-items: center; gap: 6px; }
+
+    /* ── Icon buttons (NO background) ── */
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .icon-btn:hover { background: rgba(255,255,255,0.12); }
+    .icon-btn svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── Hamburger → X animation ── */
+    .hamburger-btn .bar { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease; transform-origin: center; }
+    .hamburger-btn .bar:nth-child(1) { margin-bottom: 5px; }
+    .hamburger-btn .bar:nth-child(2) { margin-bottom: 5px; }
+    .hamburger-btn .bar:nth-child(3) { }
+    .hamburger-btn.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger-btn.open .bar:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger-btn.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* =============================================
+       SEARCH BAR (no overlay, no close btn)
+    ============================================= */
+    .search-wrapper {
+      position: fixed;
+      top: var(--header-h);
+      left: 0; right: 0;
+      background: #fff;
+      padding: 10px 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      z-index: 850;
+      transform: translateY(-120%);
+      transition: transform 0.3s ease;
+    }
+    .search-wrapper.open { transform: translateY(0); }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 999px;
+      border: 2px solid var(--panel);
+      box-shadow: 4px 4px 0px rgba(82,61,53,0.3), inset 0 1px 3px rgba(0,0,0,0.05);
+      overflow: hidden;
+      padding: 0 4px 0 14px;
+    }
+    .search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      padding: 10px 0;
+      background: transparent;
+      color: #222;
+    }
+    .search-submit {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--panel);
+      background: var(--panel);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 rgba(82,61,53,0.4);
+      flex-shrink: 0;
+    }
+    .search-submit svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .search-results {
+      margin-top: 8px;
+      max-height: 240px;
+      overflow-y: auto;
+      display: none;
+    }
+    .search-results.show { display: block; }
+    .search-result-item {
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #222;
+      transition: background 0.15s;
+    }
+    .search-result-item:hover { background: var(--card); }
+    .search-result-badge { font-size: 11px; color: var(--muted); background: #e5e7eb; padding: 2px 8px; border-radius: 99px; }
+    .search-no-result { padding: 14px; font-size: 14px; color: var(--muted); text-align: center; }
+
+    /* =============================================
+       MENU PANEL (opens BELOW header)
+    ============================================= */
+    .menu-panel {
+      position: fixed;
+      top: var(--header-h);
+      right: -100%;
+      width: min(340px, 100vw);
+      height: calc(100vh - var(--header-h));
+      background: var(--panel);
+      z-index: 800;
+      overflow-y: auto;
+      transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-panel.open { right: 0; }
+
+    /* Backdrop */
+    .menu-backdrop {
+      position: fixed;
+      inset: 0;
+      top: var(--header-h);
+      background: rgba(0,0,0,0.35);
+      z-index: 799;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .menu-backdrop.show { opacity: 1; pointer-events: all; }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+      padding: 10px 16px;
+      background: rgba(0,0,0,0.2);
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+    .breadcrumbs a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+    .breadcrumbs a:hover { color: #fff; }
+    .breadcrumbs .sep { color: rgba(255,255,255,0.35); }
+    .breadcrumbs .cur { color: #fff; font-weight: 600; }
+
+    /* Menu nav links */
+    .menu-nav { padding: 8px 0; flex: 1; }
+    .menu-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 20px;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 15px;
+      border-left: 3px solid transparent;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+    .menu-link:hover, .menu-link.active {
+      background: rgba(255,255,255,0.08);
+      border-left-color: var(--accent);
+      color: #fff;
+    }
+    .menu-link .ml-icon { font-size: 18px; width: 22px; text-align: center; }
+
+    /* Menu divider */
+    .menu-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 6px 16px; }
+
+
+
+
+    /* Account section inside menu */
+    .menu-account {
+      padding: 14px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .menu-account .acc-info {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .menu-account .acc-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: #fff; font-weight: 700; overflow: hidden;
+    }
+    .menu-account .acc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .menu-account .acc-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .menu-account .acc-email { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .btn-menu-auth {
+      width: 100%; padding: 9px; border-radius: 8px; border: none; cursor: pointer;
+      font-size: 14px; font-weight: 600; transition: opacity 0.2s;
+    }
+    .btn-menu-auth:hover { opacity: 0.85; }
+    .btn-signin { background: var(--accent); color: #fff; margin-bottom: 6px; }
+    .btn-signout { background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* =============================================
+       AUTH MODAL
+    ============================================= */
+    .auth-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      z-index: 1000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .auth-modal-overlay.show { opacity: 1; pointer-events: all; }
+
+    .auth-card {
+      background: #fff; border-radius: 20px; width: min(420px, 94vw);
+      padding: 32px 28px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      transform: translateY(20px); transition: transform 0.3s;
+    }
+    .auth-modal-overlay.show .auth-card { transform: translateY(0); }
+
+    .auth-school-logo {
+      display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 22px;
+    }
+    .auth-school-logo img {
+      width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--panel); box-shadow: 0 4px 12px rgba(82,61,53,0.2);
+    }
+    .auth-school-logo h2 { margin: 0; font-size: 17px; color: var(--panel); font-weight: 700; text-align: center; }
+    .auth-school-logo p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+
+    .auth-tabs { display: flex; border-bottom: 2px solid #e5e7eb; margin-bottom: 22px; }
+    .auth-tab {
+      flex: 1; padding: 10px; border: none; background: none; cursor: pointer;
+      font-size: 14px; font-weight: 600; color: var(--muted);
+      border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s;
+    }
+    .auth-tab.active { color: var(--panel); border-bottom-color: var(--panel); }
+
+    .auth-form { display: none; }
+    .auth-form.active { display: block; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
+    .form-group input {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db;
+      border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus { border-color: var(--panel); }
+
+    .btn-auth-submit {
+      width: 100%; padding: 11px; border: none; border-radius: 10px;
+      background: var(--panel); color: #fff; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s; margin-top: 4px;
+    }
+    .btn-auth-submit:hover { background: #3a2a24; }
+
+    .auth-divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+    .auth-divider span { font-size: 12px; color: var(--muted); }
+
+    .btn-google {
+      width: 100%; padding: 11px; border: 1.5px solid #d1d5db; border-radius: 10px;
+      background: #fff; color: #222; font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 10px; transition: background 0.2s;
+    }
+    .btn-google:hover { background: #f9fafb; }
+    .btn-google img { width: 20px; height: 20px; }
+
+    .auth-policy { font-size: 11px; color: var(--muted); text-align: center; margin-top: 14px; line-height: 1.5; }
+    .auth-policy a { color: var(--panel); text-decoration: underline; }
+
+    .auth-msg { font-size: 13px; text-align: center; margin-top: 10px; padding: 8px; border-radius: 8px; }
+    .auth-msg.success { background: #d1fae5; color: #065f46; }
+    .auth-msg.error { background: #fee2e2; color: #991b1b; }
+
+    .auth-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; cursor: pointer; font-size: 22px; color: #888; line-height: 1;
+    }
+
+    /* =============================================
+       REGISTRATION FORM MODAL
+    ============================================= */
+    .reg-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 1000; display: flex; align-items: flex-start; justify-content: center;
+      overflow-y: auto; padding: 20px 10px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .reg-modal-overlay.show { opacity: 1; pointer-events: all; }
+
+    .reg-card {
+      background: #fff; border-radius: 18px; width: min(680px, 100%);
+      padding: 28px 24px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .reg-header { margin-bottom: 22px; }
+    .reg-header h2 { margin: 0 0 4px; font-size: 20px; color: var(--panel); }
+    .reg-header p { margin: 0; font-size: 13px; color: var(--muted); }
+    .reg-id-badge {
+      display: inline-block; background: var(--panel); color: #fff;
+      font-size: 13px; font-weight: 700; padding: 4px 14px; border-radius: 99px;
+      margin-top: 8px; letter-spacing: 1px;
+    }
+
+    .reg-section-title {
+      font-size: 13px; font-weight: 700; color: var(--panel);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin: 20px 0 12px; padding-bottom: 6px;
+      border-bottom: 2px solid var(--card);
+    }
+
+    .reg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+
+    .reg-group { margin-bottom: 0; }
+    .reg-group label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
+    .reg-group input,
+    .reg-group select,
+    .reg-group textarea {
+      width: 100%; padding: 9px 12px; border: 1.5px solid #d1d5db;
+      border-radius: 8px; font-size: 13px; outline: none;
+      transition: border-color 0.2s; background: #fff; color: #222;
+    }
+    .reg-group input:focus,
+    .reg-group select:focus,
+    .reg-group textarea:focus { border-color: var(--panel); }
+
+    .phone-wrap { display: flex; gap: 6px; }
+    .phone-flag {
+      display: flex; align-items: center; gap: 4px;
+      padding: 9px 10px; border: 1.5px solid #d1d5db; border-radius: 8px;
+      font-size: 13px; background: #f9fafb; white-space: nowrap;
+    }
+
+    .upload-box {
+      border: 2px dashed #d1d5db; border-radius: 10px;
+      padding: 16px; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s; position: relative;
+    }
+    .upload-box:hover { border-color: var(--panel); background: #fafafa; }
+    .upload-box input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .upload-box .up-icon { font-size: 28px; }
+    .upload-box .up-label { font-size: 13px; color: #555; margin-top: 4px; }
+    .upload-box .up-hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .upload-box .up-filename { font-size: 12px; color: var(--accent); margin-top: 4px; font-weight: 600; }
+
+    .agree-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 10px; }
+    .agree-group input[type="checkbox"] { margin-top: 2px; accent-color: var(--panel); width: 16px; height: 16px; flex-shrink: 0; }
+    .agree-group label { font-size: 13px; color: #444; line-height: 1.5; }
+    .agree-group label a { color: var(--panel); }
+
+    .btn-reg-submit {
+      width: 100%; padding: 13px; border: none; border-radius: 10px;
+      background: var(--panel); color: #fff; font-size: 15px; font-weight: 700;
+      cursor: pointer; margin-top: 20px; transition: background 0.2s;
+    }
+    .btn-reg-submit:hover { background: #3a2a24; }
+    .btn-reg-submit:disabled { background: #aaa; cursor: not-allowed; }
+
+    .reg-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; cursor: pointer; font-size: 22px; color: #888;
+    }
+
+    /* =============================================
+       REGISTRATION STATUS PAGE
+    ============================================= */
+    .reg-status-overlay {
+      position: fixed; inset: 0; background: #f8fafc;
+      z-index: 990; display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .reg-status-overlay.show { display: flex; }
+
+    .reg-status-card {
+      background: #fff; border-radius: 20px;
+      width: min(480px, 100%); padding: 32px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12); text-align: center;
+    }
+    .status-icon { font-size: 56px; margin-bottom: 12px; }
+    .status-reg-id {
+      font-size: 22px; font-weight: 800; color: var(--panel);
+      letter-spacing: 2px; margin: 0 0 6px;
+    }
+    .status-label {
+      display: inline-block; padding: 5px 18px; border-radius: 99px;
+      font-size: 13px; font-weight: 700; margin: 10px 0;
+    }
+    .status-label.pending { background: #fef3c7; color: #92400e; }
+    .status-label.approved { background: #d1fae5; color: #065f46; }
+    .status-label.rejected { background: #fee2e2; color: #991b1b; }
+
+    .visit-info {
+      background: var(--card); border-radius: 10px; padding: 14px;
+      margin-top: 14px; font-size: 14px; color: #333; text-align: left;
+    }
+    .visit-info strong { color: var(--panel); }
+
+    .btn-track { margin-top: 16px; padding: 10px 28px; border-radius: 99px; border: none;
+      background: var(--panel); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+    /* =============================================
+       ENQUIRY BUTTON (floating)
+    ============================================= */
+    .enquiry-fab {
+      position: fixed; bottom: 24px; right: 20px; z-index: 700;
+      background: var(--accent); color: #fff; border: none; border-radius: 99px;
+      padding: 12px 20px; font-size: 14px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(130,156,0,0.4);
+      display: flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .enquiry-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(130,156,0,0.5); }
+
+    /* Enquiry Modal */
+    .enquiry-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 1000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .enquiry-modal-overlay.show { opacity: 1; pointer-events: all; }
+    .enquiry-card {
+      background: #fff; border-radius: 18px; width: min(420px, 94vw);
+      padding: 28px 24px; position: relative;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+    }
+    .enquiry-card h3 { margin: 0 0 18px; font-size: 18px; color: var(--panel); }
+    .btn-enquiry-submit {
+      width: 100%; padding: 11px; border: none; border-radius: 10px;
+      background: var(--accent); color: #fff; font-size: 15px; font-weight: 700;
+      cursor: pointer; margin-top: 10px;
+    }
+    .enquiry-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; cursor: pointer; font-size: 22px; color: #888;
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      padding: 40px; background: var(--accent); color: #fff;
+    }
+    .hero h2 { margin: 0 0 6px; font-size: clamp(18px, 3vw, 26px); }
+    .hero p { margin: 0; font-size: 14px; opacity: 0.9; }
+
+    /* SECTIONS */
+    .section { padding: 20px 16px; }
+    .section > h2 { color: var(--panel); margin: 0 0 14px; font-size: 20px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: var(--gap); }
+    .card { background: var(--card); padding: 16px; border-radius: 8px; color: #111; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .card h3 { margin: 0 0 6px; font-size: 15px; }
+    .card p { margin: 0; font-size: 13px; color: var(--muted); }
+
+   
+   
+    
+    /* Apply Now btn */
+    .btn-apply {
+      padding: 11px 22px; border: none; border-radius: 8px;
+      background: var(--accent); color: #fff; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s; margin-top: 10px;
+    }
+    .btn-apply:hover { background: #0A1F44; }
+
+    /* =============================================
+       FOOTER (responsive, no SVG icons)
+    ============================================= */
+    
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: #1f2937; color: #fff; padding: 10px 20px;
+      border-radius: 99px; font-size: 13px; z-index: 2000;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       HEADER
+  =========================================== -->
+  <header>
+    <div class="brand">
+      
+      <h1>Aims International School</h1>
+    </div>
+
+    <div class="header-actions">
+      <!-- Search icon -->
+      <button class="icon-btn" id="searchToggle" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+
+      <!-- Hamburger → X -->
+      <button class="icon-btn hamburger-btn" id="menuToggle" aria-label="Menu">
+        <span style="display:flex;flex-direction:column;justify-content:center;">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       SEARCH BAR (below header, no overlay)
+  =========================================== -->
+  <div class="search-wrapper" id="searchWrapper">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search pages, resources..." autocomplete="off">
+      <button class="search-submit" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <!-- ==========================================
+       MENU BACKDROP
+  =========================================== -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  <!-- ==========================================
+       MENU PANEL (opens below header)
+  =========================================== -->
+  <div class="menu-panel" id="menuPanel">
+
+    <!-- Breadcrumbs at top -->
+    <div class="breadcrumbs" id="breadcrumbs">
+      <a href="#" class="bc-home">Home</a>
+    </div>
+
+    <!-- Nav links (generated from siteData) -->
+    <nav class="menu-nav" id="menuNav"></nav>
+
+    <!-- Account section -->
+    <div class="menu-account">
+      <div class="acc-info" id="menuAccInfo">
+        <div class="acc-avatar" id="menuAvatar">?</div>
+        <div>
+          <div class="acc-name" id="menuName">Guest</div>
+          <div class="acc-email" id="menuEmail">Not signed in</div>
+        </div>
+      </div>
+      <div id="menuAuthBtns">
+        <button class="btn-menu-auth btn-signin" onclick="openAuthModal('signin')">Sign In / Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AUTH MODAL
+  =========================================== -->
+  <div class="auth-modal-overlay" id="authModal">
+    <div class="auth-card">
+      <button class="auth-close" onclick="closeAuthModal()">&#x2715;</button>
+      <div class="auth-school-logo">
+        <img src="/Resource /head.img/unnamed.png" alt="Aims Logo">
+        <h2>Aims International School</h2>
+        <p>Bahraich, Uttar Pradesh</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</button>
+        <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <div class="auth-form active" id="signinForm">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="siEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="siPassword" placeholder="Enter password">
+        </div>
+        <button class="btn-auth-submit" onclick="doSignIn()">Sign In</button>
+
+        <div class="auth-divider"><span>or continue with</span></div>
+        <button class="btn-google" onclick="doGoogleAuth()">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+          Continue with Google
+        </button>
+        <div id="siMsg" class="auth-msg" style="display:none;"></div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div class="auth-form" id="signupForm">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="suName" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="suEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="suPassword" placeholder="Min. 6 characters">
+        </div>
+        <button class="btn-auth-submit" onclick="doSignUp()">Create Account</button>
+
+        <div class="auth-divider"><span>or</span></div>
+        <button class="btn-google" onclick="doGoogleAuth()">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+          Sign up with Google
+        </button>
+        <div id="suMsg" class="auth-msg" style="display:none;"></div>
+      </div>
+
+      <p class="auth-policy">
+        By continuing you agree to our
+        <a href="#">Privacy Policy</a> &amp; <a href="#">Terms of Service</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       REGISTRATION FORM MODAL
+  =========================================== -->
+  <div class="reg-modal-overlay" id="regModal">
+    <div class="reg-card">
+      <button class="reg-close" onclick="closeRegModal()">&#x2715;</button>
+
+      <div class="reg-header">
+        <h2>Admission Registration Form</h2>
+        <p>Aims International School, Bahraich &mdash; 2025-26</p>
+        <div class="reg-id-badge" id="regIdDisplay">Generating ID...</div>
+      </div>
+
+      <form id="regForm" onsubmit="submitRegistration(event)">
+        <input type="hidden" id="regId">
+
+        <!-- Personal Info -->
+        <div class="reg-section-title">Applicant Information</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Applicant Name *</label>
+            <input type="text" id="rApplicantName" required placeholder="Full name">
+          </div>
+          <div class="reg-group">
+            <label>Gender *</label>
+            <select id="rGender" required>
+              <option value="">Select Gender</option>
+              <option>Male</option><option>Female</option><option>Other</option>
+            </select>
+          </div>
+          <div class="reg-group">
+            <label>Date of Birth (DD/MM/YYYY) *</label>
+            <input type="date" id="rDob" required>
+          </div>
+          <div class="reg-group">
+            <label>Mother Name *</label>
+            <input type="text" id="rMotherName" required placeholder="Mother's full name">
+          </div>
+          <div class="reg-group">
+            <label>Father Name *</label>
+            <input type="text" id="rFatherName" required placeholder="Father's full name">
+          </div>
+          <div class="reg-group">
+            <label>Applied For Class *</label>
+            <select id="rClass" required>
+              <option value="">Select Class</option>
+              <option value="LKG">LKG</option><option value="UKG">UKG</option>
+              <option value="1">Class 1</option><option value="2">Class 2</option>
+              <option value="3">Class 3</option><option value="4">Class 4</option>
+              <option value="5">Class 5</option><option value="6">Class 6</option>
+              <option value="7">Class 7</option><option value="8">Class 8</option>
+              <option value="9">Class 9</option><option value="10">Class 10</option>
+              <option value="11">Class 11</option><option value="12">Class 12</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="reg-section-title">Contact Details</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Residential Contact *</label>
+            <div class="phone-wrap">
+              <div class="phone-flag">&#x1F1EE;&#x1F1F3; +91</div>
+              <input type="tel" id="rPhone" required placeholder="10-digit number" maxlength="10" style="flex:1;">
+            </div>
+          </div>
+          <div class="reg-group">
+            <label>Alternate Contact (optional)</label>
+            <div class="phone-wrap">
+              <div class="phone-flag">&#x1F1EE;&#x1F1F3; +91</div>
+              <input type="tel" id="rAltPhone" placeholder="10-digit number" maxlength="10" style="flex:1;">
+            </div>
+          </div>
+          <div class="reg-group">
+            <label>Gmail Address *</label>
+            <input type="email" id="rGmail" required placeholder="example@gmail.com">
+          </div>
+          <div class="reg-group" style="grid-column:1/-1;">
+            <label>Residence Address *</label>
+            <textarea id="rAddress" required rows="2" placeholder="Full address with pin code"></textarea>
+          </div>
+        </div>
+
+        <!-- Category & Religion -->
+        <div class="reg-section-title">Category &amp; Religion</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Category *</label>
+            <select id="rCategory" required>
+              <option value="">Select Category</option>
+              <option>General</option><option>OBC</option><option>SC</option><option>ST</option>
+            </select>
+          </div>
+          <div class="reg-group">
+            <label>Religion *</label>
+            <select id="rReligion" required>
+              <option value="">Select Religion</option>
+              <option>Hindu</option><option>Sikh</option><option>Christian</option>
+              <option>Muslim</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Document Uploads -->
+        <div class="reg-section-title">Document Upload</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Applicant Photo *</label>
+            <div class="upload-box" id="photoBox">
+              <input type="file" id="rPhoto" accept="image/*" onchange="handleFileSelect('rPhoto','photoBox','photoName')" required>
+              <div class="up-icon">&#128247;</div>
+              <div class="up-label">Click to upload photo</div>
+              <div class="up-hint">Max 100MB &mdash; JPG, PNG</div>
+              <div class="up-filename" id="photoName"></div>
+            </div>
+          </div>
+          <div class="reg-group">
+            <label>TC / DOB Certificate *</label>
+            <div class="upload-box" id="tcBox">
+              <input type="file" id="rTC" accept=".pdf,image/*" onchange="handleFileSelect('rTC','tcBox','tcName')" required>
+              <div class="up-icon">&#128196;</div>
+              <div class="up-label">Upload TC or Birth Certificate</div>
+              <div class="up-hint">PDF or Image &mdash; Max 100MB</div>
+              <div class="up-filename" id="tcName"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Previous School -->
+        <div class="reg-section-title">Previous School Details (if applicable)</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Previous School Name</label>
+            <input type="text" id="rPrevSchool" placeholder="School name">
+          </div>
+          <div class="reg-group">
+            <label>Class Passed</label>
+            <input type="text" id="rPrevClass" placeholder="e.g. Class 5">
+          </div>
+          <div class="reg-group">
+            <label>Passing Year</label>
+            <input type="text" id="rPrevYear" placeholder="e.g. 2024" maxlength="4">
+          </div>
+          <div class="reg-group">
+            <label>Marks Obtained / Percentage</label>
+            <input type="text" id="rPrevMarks" placeholder="e.g. 85%">
+          </div>
+          <div class="reg-group" style="grid-column:1/-1;">
+            <label>Upload Marksheet</label>
+            <div class="upload-box">
+              <input type="file" id="rMarksheet" accept=".pdf,image/*" onchange="handleFileSelect('rMarksheet','msBox','msName')">
+              <div class="up-icon">&#128203;</div>
+              <div class="up-label">Upload Previous Marksheet</div>
+              <div class="up-hint">PDF or Image &mdash; Optional</div>
+              <div class="up-filename" id="msName"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agreement -->
+        <div class="reg-section-title">Declaration</div>
+        <div class="agree-group">
+          <input type="checkbox" id="agreeDetails" required>
+          <label for="agreeDetails">I hereby declare that all the above details are true and correct as per the original documents. Any false information may result in cancellation of admission.</label>
+        </div>
+        <div class="agree-group">
+          <input type="checkbox" id="agreeTerms" required>
+          <label for="agreeTerms">I have read and agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a> of Aims International School.</label>
+        </div>
+
+        <button type="submit" class="btn-reg-submit" id="regSubmitBtn">Submit Registration</button>
+        <div id="regMsg" class="auth-msg" style="display:none; margin-top:10px;"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       REGISTRATION STATUS
+  =========================================== -->
+  <div class="reg-status-overlay" id="regStatusOverlay">
+    <div class="reg-status-card">
+      <div class="status-icon" id="statusIcon">&#128203;</div>
+      <p style="color:#666;font-size:14px;margin:0;">Registration ID</p>
+      <div class="status-reg-id" id="statusRegId">--</div>
+      <div id="statusLabel" class="status-label pending">Pending Review</div>
+      <p id="statusMsg" style="font-size:14px;color:#555;margin:10px 0 0;"></p>
+      <div class="visit-info" id="visitInfo" style="display:none;">
+        <strong>Visit Schedule</strong>
+        <p id="visitDate" style="margin:6px 0 0;"></p>
+        <p id="visitNote" style="margin:4px 0 0; color:var(--muted); font-size:13px;"></p>
+      </div>
+      <button class="btn-track" onclick="closeStatusPage()">Back to Site</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       ENQUIRY MODAL
+  =========================================== -->
+  <div class="enquiry-modal-overlay" id="enquiryModal">
+    <div class="enquiry-card">
+      <button class="enquiry-close" onclick="closeEnquiryModal()">&#x2715;</button>
+      <h3>Send an Enquiry</h3>
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" id="enqName" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label>Phone Number *</label>
+        <div class="phone-wrap">
+          <div class="phone-flag">&#x1F1EE;&#x1F1F3; +91</div>
+          <input type="tel" id="enqPhone" placeholder="10-digit number" maxlength="10" style="flex:1;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="enqEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Message (optional)</label>
+        <textarea id="enqMsg" rows="3" placeholder="Your enquiry..." style="width:100%;padding:9px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:13px;outline:none;resize:none;"></textarea>
+      </div>
+      <button class="btn-enquiry-submit" onclick="submitEnquiry()">Send Enquiry</button>
+      <div id="enqFeedback" class="auth-msg" style="display:none;margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       ENQUIRY FAB BUTTON
+  =========================================== -->
+  <button class="enquiry-fab" id="enquiryFab" onclick="openEnquiry()">
+    &#128172; Send Enquiry
+  </button>
+  
+  <div class="section">
+    <h2>Admissions Open 2025-26</h2>
+    <div class="card">
+      <p></p>
+      <button class="btn-apply" onclick="openRegModal()">Apply Now</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       FOOTER (dynamic, from siteData)
+  =========================================== -->
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ============================= -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // =============================================
+    // SUPABASE INIT
+    // =============================================
+    const SUPABASE_URL = 'https://zdhrlwqwhyfhenkmsgir.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaHJsd3F3aHlmaGVua21zZ2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMDE5NjAsImV4cCI6MjA5MjY3Nzk2MH0.Q2oaAvvsHmpvj9VB3yv0aaXMIcqvGa6pzdNYAsLFV-c';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // =============================================
+    // CENTRAL SITE DATA — Edit links here ONCE
+    // Everything (menu, footer, search) reads from here
+    // =============================================
+    const siteData = {
+      pages: [
+        { label: 'Home',         href: '#',          icon: '&#127968;', type: 'page' },
+        { label: 'About Us',     href: '#about',     icon: '&#127979;', type: 'page' },
+        { label: 'Admissions',   href: '#admissions',icon: '&#128221;', type: 'page', action: 'openRegModal' },
+        { label: 'Academics',    href: '#academics',  icon: '&#128218;', type: 'page' },
+        { label: 'Gallery',      href: '#gallery',   icon: '&#128247;', type: 'page' },
+        { label: 'Sports',       href: '#sports',    icon: '&#9917;',   type: 'page' },
+        { label: 'Results',      href: '#results',   icon: '&#127941;', type: 'page' },
+        { label: 'Contact',      href: '#contact',   icon: '&#128222;', type: 'page' },
+        { label: 'Fee Structure',href: '#fees',      icon: '&#128176;', type: 'resource' },
+        { label: 'Syllabus',     href: '#syllabus',  icon: '&#128196;', type: 'resource' },
+        { label: 'School Timing',href: '#timing',    icon: '&#9200;',   type: 'resource' },
+        { label: 'Rules & Regulations', href: '#rules', icon: '&#128220;', type: 'resource' },
+      ]
+    };
+
+    // Build menu nav from siteData
+    const menuNav = document.getElementById('menuNav');
+    siteData.pages.forEach((item, i) => {
+      const a = document.createElement('a');
+      a.className = 'menu-link';
+      a.href = item.href;
+      a.innerHTML = `<span class="ml-icon">${item.icon}</span> ${item.label}`;
+      a.addEventListener('click', (e) => {
+        if (item.action === 'openRegModal') { e.preventDefault(); openRegModal(); closeMenu(); return; }
+        updateBreadcrumbs(item.label);
+        document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+        a.classList.add('active');
+        closeMenu();
+      });
+      if (i === 0) a.classList.add('active');
+      menuNav.appendChild(a);
+      if (i === 7) {
+        const div = document.createElement('div'); div.className = 'menu-divider'; menuNav.appendChild(div);
+        const lbl = document.createElement('div');
+        lbl.style.cssText = 'padding:6px 20px;font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;';
+        lbl.textContent = 'Resources'; menuNav.appendChild(lbl);
+      }
+    });
+
+    // Build footer quick links from siteData
+  
+
+    // =============================================
+    // BREADCRUMBS
+    // =============================================
+   
+
+    // =============================================
+    // SEARCH
+    // =============================================
+    const searchToggle = document.getElementById('searchToggle');
+    const searchWrapper = document.getElementById('searchWrapper');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    searchToggle.addEventListener('click', () => {
+      searchWrapper.classList.toggle('open');
+      if (searchWrapper.classList.contains('open')) { setTimeout(() => searchInput.focus(), 300); }
+      else { searchInput.value = ''; searchResults.innerHTML = ''; searchResults.classList.remove('show'); }
+    });
+
+    // Close search when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!searchWrapper.contains(e.target) && !searchToggle.contains(e.target)) {
+        searchWrapper.classList.remove('open');
+        searchInput.value = ''; searchResults.innerHTML = ''; searchResults.classList.remove('show');
+      }
+    });
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      searchResults.innerHTML = '';
+      if (!q) { searchResults.classList.remove('show'); return; }
+      const matches = siteData.pages.filter(p => p.label.toLowerCase().includes(q));
+      if (matches.length === 0) {
+        searchResults.innerHTML = `<div class="search-no-result">No results for "${q}"</div>`;
+      } else {
+        matches.forEach(item => {
+          const d = document.createElement('div');
+          d.className = 'search-result-item';
+          d.innerHTML = `<span>${item.icon} ${item.label}</span><span class="search-result-badge">${item.type}</span>`;
+          d.onclick = () => {
+            if (item.action === 'openRegModal') openRegModal();
+            else window.location.hash = item.href.replace('#','');
+            searchWrapper.classList.remove('open');
+            searchInput.value = ''; searchResults.innerHTML = ''; searchResults.classList.remove('show');
+          };
+          searchResults.appendChild(d);
+        });
+      }
+      searchResults.classList.add('show');
+    });
+
+    // =============================================
+    // HAMBURGER / MENU PANEL
+    // =============================================
+    const menuToggle = document.getElementById('menuToggle');
+    const menuPanel = document.getElementById('menuPanel');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuPanel.classList.toggle('open');
+      menuToggle.classList.toggle('open', isOpen);
+      menuBackdrop.classList.toggle('show', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    menuBackdrop.addEventListener('click', closeMenu);
+
+    function closeMenu() {
+      menuPanel.classList.remove('open');
+      menuToggle.classList.remove('open');
+      menuBackdrop.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    // =============================================
+    // AUTH — Supabase
+    // =============================================
+    let currentUser = null;
+
+    sb.auth.onAuthStateChange((event, session) => {
+      currentUser = session?.user ?? null;
+      updateMenuAccount();
+    });
+
+    async function doSignIn() {
+      const email = document.getElementById('siEmail').value.trim();
+      const pass = document.getElementById('siPassword').value;
+      showAuthMsg('siMsg', '', '');
+      const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+      if (error) { showAuthMsg('siMsg', error.message, 'error'); }
+      else { closeAuthModal(); showToast('Signed in successfully!'); }
+    }
+
+    async function doSignUp() {
+      const name = document.getElementById('suName').value.trim();
+      const email = document.getElementById('suEmail').value.trim();
+      const pass = document.getElementById('suPassword').value;
+      showAuthMsg('suMsg', '', '');
+      const { error } = await sb.auth.signUp({
+        email, password: pass,
+        options: {
+          data: { full_name: name },
+          emailRedirectTo: window.location.origin
+        }
+      });
+      if (error) { showAuthMsg('suMsg', error.message, 'error'); }
+      else { showAuthMsg('suMsg', 'Check your email to confirm your account!', 'success'); }
+    }
+
+    async function doGoogleAuth() {
+      await sb.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin }
+      });
+    }
+
+    async function doSignOut() {
+      await sb.auth.signOut();
+      showToast('Signed out.');
+    }
+
+    function openAuthModal(tab) {
+      document.getElementById('authModal').classList.add('show');
+      switchAuthTab(tab || 'signin');
+    }
+    function closeAuthModal() { document.getElementById('authModal').classList.remove('show'); }
+
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach((t, i) => t.classList.toggle('active', (i === 0 && tab === 'signin') || (i === 1 && tab === 'signup')));
+      document.getElementById('signinForm').classList.toggle('active', tab === 'signin');
+      document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
+    }
+
+    function showAuthMsg(id, msg, type) {
+      const el = document.getElementById(id);
+      el.style.display = msg ? 'block' : 'none';
+      el.textContent = msg;
+      el.className = 'auth-msg ' + type;
+    }
+
+    function updateMenuAccount() {
+      const avatar = document.getElementById('menuAvatar');
+      const nameEl = document.getElementById('menuName');
+      const emailEl = document.getElementById('menuEmail');
+      const btns = document.getElementById('menuAuthBtns');
+
+      if (currentUser) {
+        const name = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || 'User';
+        const pic = currentUser.user_metadata?.avatar_url;
+        nameEl.textContent = name;
+        emailEl.textContent = currentUser.email;
+        avatar.innerHTML = pic ? `<img src="${pic}" alt="avatar">` : name[0].toUpperCase();
+        btns.innerHTML = `<button class="btn-menu-auth btn-signout" onclick="doSignOut()">Sign Out</button>`;
+      } else {
+        nameEl.textContent = 'Guest';
+        emailEl.textContent = 'Not signed in';
+        avatar.innerHTML = '?';
+        btns.innerHTML = `<button class="btn-menu-auth btn-signin" onclick="openAuthModal('signin')">Sign In / Sign Up</button>`;
+      }
+    }
+
+    // Close auth modal on outside click
+    document.getElementById('authModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('authModal')) closeAuthModal();
+    });
+
+    // =============================================
+    // REGISTRATION FORM
+    // =============================================
+    function generateRegId() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+      let id = 'AIS';
+      for (let i = 0; i < 7; i++) id += chars[Math.floor(Math.random() * chars.length)];
+      return id;
+    }
+
+    function openRegModal() {
+      if (!currentUser) { openAuthModal('signin'); showToast('Please sign in to apply.'); return; }
+      const regId = generateRegId();
+      document.getElementById('regId').value = regId;
+      document.getElementById('regIdDisplay').textContent = 'Reg. ID: ' + regId;
+      document.getElementById('rGmail').value = currentUser.email || '';
+      document.getElementById('regModal').classList.add('show');
+    }
+
+    function closeRegModal() { document.getElementById('regModal').classList.remove('show'); }
+
+    document.getElementById('regModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('regModal')) closeRegModal();
+    });
+
+    function handleFileSelect(inputId, boxId, nameId) {
+      const file = document.getElementById(inputId).files[0];
+      if (file) { document.getElementById(nameId).textContent = file.name; }
+    }
+
+    async function uploadFile(file, bucket, path) {
+      if (!file) return null;
+      const { data, error } = await sb.storage.from(bucket).upload(path, file, { upsert: true });
+      if (error) { console.error('Upload error:', error); return null; }
+      return data.path;
+    }
+
+    async function submitRegistration(e) {
+      e.preventDefault();
+      const btn = document.getElementById('regSubmitBtn');
+      btn.disabled = true; btn.textContent = 'Submitting...';
+      const regId = document.getElementById('regId').value;
+      const uid = currentUser.id;
+
+      const photoFile = document.getElementById('rPhoto').files[0];
+      const tcFile = document.getElementById('rTC').files[0];
+      const msFile = document.getElementById('rMarksheet').files[0];
+
+      const photoPath = photoFile ? await uploadFile(photoFile, 'applicant-photos', `${uid}/${regId}_photo`) : null;
+      const tcPath = tcFile ? await uploadFile(tcFile, 'applicant-docs', `${uid}/${regId}_tc`) : null;
+      const msPath = msFile ? await uploadFile(msFile, 'applicant-docs', `${uid}/${regId}_marksheet`) : null;
+
+      const payload = {
+        registration_id: regId,
+        user_id: uid,
+        applicant_name: document.getElementById('rApplicantName').value,
+        gender: document.getElementById('rGender').value,
+        dob: document.getElementById('rDob').value,
+        mother_name: document.getElementById('rMotherName').value,
+        father_name: document.getElementById('rFatherName').value,
+        applied_class: document.getElementById('rClass').value,
+        residential_contact: '+91' + document.getElementById('rPhone').value,
+        alternate_contact: document.getElementById('rAltPhone').value ? '+91' + document.getElementById('rAltPhone').value : null,
+        gmail_address: document.getElementById('rGmail').value,
+        residence_address: document.getElementById('rAddress').value,
+        category: document.getElementById('rCategory').value,
+        religion: document.getElementById('rReligion').value,
+        applicant_photo_url: photoPath,
+        tc_dob_cert_url: tcPath,
+        prev_school_name: document.getElementById('rPrevSchool').value || null,
+        prev_school_class: document.getElementById('rPrevClass').value || null,
+        prev_passing_year: document.getElementById('rPrevYear').value || null,
+        prev_obtained_marks: document.getElementById('rPrevMarks').value || null,
+        prev_marksheet_url: msPath,
+        status: 'pending'
+      };
+
+      const { error } = await sb.from('registrations').insert(payload);
+      btn.disabled = false; btn.textContent = 'Submit Registration';
+
+      if (error) {
+        document.getElementById('regMsg').style.display = 'block';
+        document.getElementById('regMsg').textContent = 'Error: ' + error.message;
+        document.getElementById('regMsg').className = 'auth-msg error';
+      } else {
+        closeRegModal();
+        showStatusPage(regId);
+      }
+    }
+
+    // =============================================
+    // REGISTRATION STATUS
+    // =============================================
+    function showStatusPage(regId) {
+      document.getElementById('statusRegId').textContent = regId;
+      document.getElementById('statusIcon').textContent = '⏳';
+      document.getElementById('statusLabel').className = 'status-label pending';
+      document.getElementById('statusLabel').textContent = 'Pending Review';
+      document.getElementById('statusMsg').textContent = 'Your registration is under review by the school. You will be notified soon.';
+      document.getElementById('visitInfo').style.display = 'none';
+      document.getElementById('regStatusOverlay').classList.add('show');
+    }
+
+    function closeStatusPage() { document.getElementById('regStatusOverlay').classList.remove('show'); }
+
+    async function trackRegistration(regId) {
+      const { data, error } = await sb.from('registrations').select('*').eq('registration_id', regId).single();
+      if (error || !data) { showToast('Registration not found.'); return; }
+      showRegStatusFromData(data);
+    }
+
+    function showRegStatusFromData(data) {
+      document.getElementById('statusRegId').textContent = data.registration_id;
+      const status = data.status;
+      const overlay = document.getElementById('regStatusOverlay');
+      const lbl = document.getElementById('statusLabel');
+      const icon = document.getElementById('statusIcon');
+      const msg = document.getElementById('statusMsg');
+      const visitInfo = document.getElementById('visitInfo');
+
+      lbl.className = 'status-label ' + status;
+      if (status === 'approved') {
+        icon.textContent = '✅'; lbl.textContent = 'Approved';
+        msg.textContent = 'Congratulations! Your registration has been approved.';
+        if (data.visit_date) {
+          visitInfo.style.display = 'block';
+          document.getElementById('visitDate').textContent = 'Visit Date: ' + new Date(data.visit_date).toLocaleString('en-IN');
+          document.getElementById('visitNote').textContent = data.visit_note || '';
+        }
+      } else if (status === 'rejected') {
+        icon.textContent = '❌'; lbl.textContent = 'Not Available';
+        msg.textContent = 'Seats are not available. Thank you for your interest in Aims International School.';
+        visitInfo.style.display = 'none';
+      } else {
+        icon.textContent = '⏳'; lbl.textContent = 'Pending Review';
+        msg.textContent = 'Your registration is under review. Please check back later.';
+        visitInfo.style.display = 'none';
+      }
+      overlay.classList.add('show');
+    }
+
+    // =============================================
+    // ENQUIRY
+    // =============================================
+    function openEnquiry() {
+      if (currentUser) {
+        const name = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || '';
+        document.getElementById('enqName').value = name;
+        document.getElementById('enqEmail').value = currentUser.email || '';
+      }
+      document.getElementById('enquiryModal').classList.add('show');
+    }
+
+    function closeEnquiryModal() { document.getElementById('enquiryModal').classList.remove('show'); }
+
+    document.getElementById('enquiryModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('enquiryModal')) closeEnquiryModal();
+    });
+
+    async function submitEnquiry() {
+      const name = document.getElementById('enqName').value.trim();
+      const phone = document.getElementById('enqPhone').value.trim();
+      const email = document.getElementById('enqEmail').value.trim();
+      const msg = document.getElementById('enqMsg').value.trim();
+
+      if (!name || !phone || !email) { showEnqFeedback('Please fill all required fields.', 'error'); return; }
+
+      const { error } = await sb.from('enquiries').insert({
+        user_id: currentUser?.id || null,
+        full_name: name, phone: '+91' + phone, email, message: msg
+      });
+
+      if (error) { showEnqFeedback('Error: ' + error.message, 'error'); }
+      else { showEnqFeedback('Enquiry sent! We will contact you within 72 hours.', 'success'); setTimeout(closeEnquiryModal, 2000); }
+    }
+
+    function showEnqFeedback(msg, type) {
+      const el = document.getElementById('enqFeedback');
+      el.style.display = 'block'; el.textContent = msg;
+      el.className = 'auth-msg ' + type;
+    }
+
+    // =============================================
+    // SWIPER
+    // =============================================
+    new Swiper('.mySwiper', {
+      loop: true,
+      autoplay: { delay: 3000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true }
+    });
+
+    // =============================================
+    // BG HERO GALLERY
+    // =============================================
+    const bgHero = document.getElementById('bgHero');
+    const bgSlides = document.querySelectorAll('.bg-slide');
+    let bgCurrent = 0, bgInterval;
+
+    function applyBgLayout() {
+      bgHero.classList.remove('three','row');
+      if (window.innerWidth >= 1024) bgHero.classList.add(bgSlides.length === 3 ? 'three' : 'row');
+    }
+    applyBgLayout();
+    window.addEventListener('resize', () => { applyBgLayout(); stopBg(); if (window.innerWidth < 1024) startBg(); });
+
+    function changeBg() {
+      bgSlides[bgCurrent].classList.remove('active');
+      bgCurrent = (bgCurrent + 1) % bgSlides.length;
+      bgSlides[bgCurrent].classList.add('active');
+    }
+    function startBg() { bgInterval = setInterval(changeBg, 3000); }
+    function stopBg() { clearInterval(bgInterval); }
+
+    if (window.innerWidth < 1024) startBg();
+
+    // =============================================
+    // TOAST
+    // =============================================
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // =============================================
+    // ESC KEY
+    // =============================================
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAuthModal(); closeRegModal(); closeEnquiryModal(); closeMenu();
+        searchWrapper.classList.remove('open');
+        searchInput.value = ''; searchResults.innerHTML = ''; searchResults.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>

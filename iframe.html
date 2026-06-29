@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>School Facilities</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --accent: #2563eb;
+  --text: #e2e8f0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1rem;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15,23,42,0.7);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s ease forwards;
+}
+
+.hero span {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero p {
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+/* SECTION */
+.section {
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* GRID */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* CARD */
+.card {
+  flex: 1 1 300px;
+  min-width: 0;
+  background: var(--card);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-0.5rem) scale(1.02);
+}
+
+/* IMAGE */
+.card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s ease;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+/* CONTENT */
+.card-content {
+  padding: 1rem;
+}
+
+.card h3 {
+  font-weight: 600;
+}
+
+/* VIDEO SECTION */
+.video-box {
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.video-box video {
+  width: 100%;
+  height: auto;
+}
+
+/* TEXT BLOCK */
+.text-block {
+  max-width: 700px;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.8s ease;
+}
+
+.text-block.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero {
+    text-align: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <video autoplay muted loop>
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <h1>Explore Our <span>World-Class</span> Facilities</h1>
+    <p>Designed to inspire learning, innovation, and growth</p>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- TEXT INTRO -->
+  <section class="section">
+    <div class="text-block fade">
+      Our campus provides a modern environment where students
+      experience the best of education, sports, and creativity.
+    </div>
+  </section>
+
+  <!-- FACILITIES -->
+  <section class="section">
+    <div class="grid">
+
+      <div class="card fade">
+        <img src="https://picsum.photos/400/300?1">
+        <div class="card-content">
+          <h3>Smart Classrooms</h3>
+        </div>
+      </div>
+
+      <div class="card fade">
+        <img src="https://picsum.photos/400/300?2">
+        <div class="card-content">
+          <h3>Science Labs</h3>
+        </div>
+      </div>
+
+      <div class="card fade">
+        <img src="https://picsum.photos/400/300?3">
+        <div class="card-content">
+          <h3>Sports Complex</h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VIDEO SHOWCASE -->
+  <section class="section fade">
+    <div class="video-box">
+      <video controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const elements = document.querySelectorAll('.fade');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+});
+
+elements.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Professional Hero</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0b1120;
+  --primary: #1e3a8a;
+  --accent: #6366f1;
+  --text: #e5e7eb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1rem;
+}
+
+/* Hero Layout */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 90vh;
+  gap: 2rem;
+}
+
+/* Text */
+.hero-text {
+  flex: 1 1 400px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Bold Heading */
+.hero-text h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s ease forwards;
+}
+
+/* Cursive Accent */
+.hero-text h1 span {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* Subtitle */
+.hero-text p {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.3s;
+  line-height: 1.6;
+}
+
+/* Button */
+.btn {
+  width: fit-content;
+  padding: 0.7rem 1.4rem;
+  background: var(--accent);
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.6s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(99,102,241,0.4);
+}
+
+/* Image */
+.hero-img {
+  flex: 1 1 400px;
+  min-width: 0;
+  position: relative;
+}
+
+.hero-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: zoomFade 1.2s ease forwards;
+  animation-delay: 0.5s;
+}
+
+/* Shape Background */
+.shape {
+  position: absolute;
+  width: 60%;
+  aspect-ratio: 1;
+  background: var(--primary);
+  border-radius: 50%;
+  filter: blur(80px);
+  top: -20%;
+  right: -10%;
+  z-index: -1;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomFade {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .btn {
+    margin: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <section class="hero">
+
+    <!-- Text -->
+    <div class="hero-text">
+      <h1>
+        Build <span>Elegant</span> Digital Experiences
+      </h1>
+
+      <p>
+        Create smooth, modern interfaces with clean transitions, strong typography,
+        and professional design systems that scale with your business.
+      </p>
+
+      <div class="btn">Get Started</div>
+    </div>
+
+    <!-- Image -->
+    <div class="hero-img">
+      <div class="shape"></div>
+      <img src="https://picsum.photos/600/400" alt="hero">
+    </div>
+
+  </section>
+</div>
+<script>
+  
+</script>
+
+</body>
+</html>

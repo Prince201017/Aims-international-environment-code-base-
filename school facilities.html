@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Modern School Facilities Bento Grid</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#050816;
+  --card:#101528;
+  --border:rgba(255,255,255,0.08);
+
+  --text:#ffffff;
+  --muted:#9ba7c7;
+
+  --cyan:#67e8f9;
+  --purple:#7c5cff;
+  --pink:#ff4fd8;
+
+  --radius:2rem;
+
+  --container:1200px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* ================================================= */
+/* BACKGROUND */
+/* ================================================= */
+
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  overflow:hidden;
+}
+
+.grid-bg{
+  position:absolute;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+
+  background-size:3rem 3rem;
+
+  mask-image:radial-gradient(circle at center, black 20%, transparent 90%);
+}
+
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.35;
+  transition:transform .15s linear;
+}
+
+.glow1{
+  width:35vw;
+  height:35vw;
+  background:var(--purple);
+  top:-10%;
+  left:-10%;
+}
+
+.glow2{
+  width:30vw;
+  height:30vw;
+  background:var(--cyan);
+  right:-10%;
+  bottom:-10%;
+}
+
+.glow3{
+  width:24vw;
+  height:24vw;
+  background:var(--pink);
+  left:40%;
+  top:40%;
+  opacity:.18;
+}
+
+/* ================================================= */
+/* GLOBAL */
+/* ================================================= */
+
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin:auto;
+  padding:1rem;
+}
+
+section{
+  position:relative;
+}
+
+/* ================================================= */
+/* HERO */
+/* ================================================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:40rem;
+  height:40rem;
+  background:radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+  filter:blur(80px);
+}
+
+.hero-content{
+  max-width:65rem;
+  position:relative;
+  z-index:5;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+
+  padding:.9rem 1.2rem;
+
+  border-radius:100px;
+
+  background:rgba(255,255,255,0.06);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  margin-bottom:2rem;
+
+  backdrop-filter:blur(10px);
+}
+
+.hero h1{
+  font-size:clamp(3rem,8vw,7rem);
+  line-height:.95;
+  font-weight:900;
+  letter-spacing:-0.05em;
+}
+
+.gradient{
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    white,
+    var(--pink)
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  max-width:50rem;
+  margin:2rem auto;
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+  font-size:1.05rem;
+}
+
+.scroll{
+  margin-top:2rem;
+  color:var(--cyan);
+  font-size:.95rem;
+
+  animation:float 2s infinite ease-in-out;
+}
+
+@keyframes float{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(12px);
+  }
+
+}
+
+/* ================================================= */
+/* FACILITIES */
+/* ================================================= */
+
+.facilities{
+  padding:6rem 0 8rem;
+}
+
+.section-head{
+  text-align:center;
+  margin-bottom:4rem;
+}
+
+.section-head h2{
+  font-size:clamp(2rem,5vw,4rem);
+  margin-bottom:1rem;
+}
+
+.section-head p{
+  max-width:45rem;
+  margin:auto;
+
+  color:var(--muted);
+
+  line-height:1.7;
+}
+
+/* ================================================= */
+/* TRUE PREMIUM BENTO GRID */
+/* ================================================= */
+
+.bento-grid{
+
+  display:grid;
+
+  grid-template-columns:repeat(12,1fr);
+
+  grid-auto-rows:90px;
+
+  gap:1rem;
+}
+
+/* ================================================= */
+/* CARD */
+/* ================================================= */
+
+.card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:var(--radius);
+
+  border:1px solid var(--border);
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.03)
+  );
+
+  backdrop-filter:blur(18px);
+
+  padding:1.5rem;
+
+  transition:
+  transform .35s ease,
+  border .3s ease,
+  background .3s ease;
+
+  transform-style:preserve-3d;
+}
+
+.card:hover{
+
+  border-color:rgba(255,255,255,0.18);
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.04)
+  );
+}
+
+.card::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:20rem;
+  height:20rem;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(255,255,255,0.14),
+    transparent 70%
+  );
+
+  top:-10rem;
+  right:-10rem;
+
+  transition:transform .5s ease;
+}
+
+.card:hover::before{
+  transform:scale(1.3);
+}
+
+/* ================================================= */
+/* CARD SIZES */
+/* ================================================= */
+
+.hero-card{
+  grid-column:span 7;
+  grid-row:span 5;
+}
+
+.tall-card{
+  grid-column:span 5;
+  grid-row:span 5;
+}
+
+.medium-card{
+  grid-column:span 4;
+  grid-row:span 3;
+}
+
+.wide-card{
+  grid-column:span 8;
+  grid-row:span 2;
+}
+
+.small-card{
+  grid-column:span 4;
+  grid-row:span 2;
+}
+
+/* ================================================= */
+/* CARD CONTENT */
+/* ================================================= */
+
+.card-content{
+  position:relative;
+  z-index:5;
+
+  height:100%;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.icon{
+
+  width:4.5rem;
+  height:4.5rem;
+
+  border-radius:1.4rem;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:2rem;
+
+  background:rgba(255,255,255,0.08);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(10px);
+}
+
+.card h3{
+  margin-top:1.5rem;
+
+  font-size:1.7rem;
+
+  line-height:1.2;
+}
+
+.card p{
+
+  margin-top:1rem;
+
+  line-height:1.7;
+
+  color:var(--muted);
+
+  font-size:.97rem;
+}
+
+/* ================================================= */
+/* FLOATING ELEMENTS */
+/* ================================================= */
+
+.floating-orb{
+
+  position:absolute;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  animation:orbFloat 5s ease-in-out infinite;
+}
+
+.orb1{
+  width:5rem;
+  height:5rem;
+
+  right:8%;
+  top:10%;
+}
+
+.orb2{
+  width:3rem;
+  height:3rem;
+
+  left:8%;
+  bottom:10%;
+}
+
+@keyframes orbFloat{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-18px);
+  }
+
+}
+
+/* ================================================= */
+/* ANIMATED LINES */
+/* ================================================= */
+
+.lines{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.line{
+
+  position:absolute;
+
+  background:
+  linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.18),
+    transparent
+  );
+}
+
+.horizontal{
+  width:100%;
+  height:1px;
+
+  animation:moveX 7s linear infinite;
+}
+
+.vertical{
+  width:1px;
+  height:100%;
+
+  animation:moveY 7s linear infinite;
+}
+
+@keyframes moveX{
+
+  from{
+    transform:translateX(-100%);
+  }
+
+  to{
+    transform:translateX(100%);
+  }
+
+}
+
+@keyframes moveY{
+
+  from{
+    transform:translateY(-100%);
+  }
+
+  to{
+    transform:translateY(100%);
+  }
+
+}
+
+/* ================================================= */
+/* STATS */
+/* ================================================= */
+
+.stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-top:2rem;
+}
+
+.stat{
+
+  flex:1 1 8rem;
+
+  min-width:0;
+
+  padding:1rem;
+
+  border-radius:1rem;
+
+  background:rgba(255,255,255,0.05);
+
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.stat h4{
+  font-size:1.5rem;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+/* ================================================= */
+/* RESPONSIVE */
+/* ================================================= */
+
+@media(max-width:1024px){
+
+  .bento-grid{
+    grid-template-columns:repeat(6,1fr);
+  }
+
+  .hero-card,
+  .tall-card,
+  .wide-card{
+    grid-column:span 6;
+  }
+
+  .medium-card,
+  .small-card{
+    grid-column:span 3;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .hero{
+    min-height:80vh;
+  }
+
+  .bento-grid{
+    grid-template-columns:1fr;
+    grid-auto-rows:auto;
+  }
+
+  .hero-card,
+  .tall-card,
+  .medium-card,
+  .small-card,
+  .wide-card{
+
+    grid-column:span 1;
+    grid-row:span 1;
+
+    min-height:20rem;
+  }
+
+  .stats{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================================================= -->
+<!-- BACKGROUND -->
+<!-- ================================================= -->
+
+<div class="background">
+
+  <div class="grid-bg"></div>
+
+  <div class="glow glow1"></div>
+  <div class="glow glow2"></div>
+  <div class="glow glow3"></div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- HERO -->
+<!-- ================================================= -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-content">
+
+      <div class="badge">
+        ✨ Smart Future Ready School
+      </div>
+
+      <h1>
+        Explore Our <br>
+        <span class="gradient">Premium Campus</span>
+      </h1>
+
+      <p>
+        A next-generation educational environment with
+        immersive learning spaces, innovation labs,
+        creative ecosystems, smart classrooms,
+        sports excellence, and futuristic student experiences.
+      </p>
+
+      <div class="scroll">
+        ↓ Scroll To Explore
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- FACILITIES -->
+<!-- ================================================= -->
+
+<section class="facilities">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <h2>School Facilities</h2>
+
+      <p>
+        Designed with a modern Bento Grid experience,
+        interactive layers, glassmorphism,
+        smooth motion, and futuristic aesthetics.
+      </p>
+
+    </div>
+
+    <!-- ================================================= -->
+    <!-- BENTO GRID -->
+    <!-- ================================================= -->
+
+    <div class="bento-grid">
+
+      <!-- ================================================= -->
+      <!-- BIG HERO CARD -->
+      <!-- ================================================= -->
+
+      <div class="card hero-card">
+
+        <div class="lines">
+          <div class="line horizontal" style="top:20%"></div>
+          <div class="line horizontal" style="top:70%"></div>
+        </div>
+
+        <div class="floating-orb orb1"></div>
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">💻</div>
+
+            <h3>
+              AI & Smart Technology Labs
+            </h3>
+
+            <p>
+              High-performance computer systems,
+              robotics environments, coding ecosystems,
+              cloud infrastructure, AI learning tools,
+              and immersive digital experiences.
+            </p>
+
+          </div>
+
+          <div class="stats">
+
+            <div class="stat">
+              <h4>50+</h4>
+              <span>Smart Systems</span>
+            </div>
+
+            <div class="stat">
+              <h4>24/7</h4>
+              <span>Cloud Access</span>
+            </div>
+
+            <div class="stat">
+              <h4>100%</h4>
+              <span>Digital Learning</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================================================= -->
+      <!-- TALL CARD -->
+      <!-- ================================================= -->
+
+      <div class="card tall-card">
+
+        <div class="lines">
+          <div class="line vertical" style="left:20%"></div>
+          <div class="line vertical" style="left:75%"></div>
+        </div>
+
+        <div class="floating-orb orb2"></div>
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">📚</div>
+
+            <h3>
+              Digital Library
+            </h3>
+
+            <p>
+              Interactive reading zones,
+              digital archives, collaborative spaces,
+              research hubs, and modern knowledge systems
+              powered by smart technology.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================================================= -->
+      <!-- MEDIUM -->
+      <!-- ================================================= -->
+
+      <div class="card medium-card">
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">⚽</div>
+
+            <h3>
+              Sports Complex
+            </h3>
+
+            <p>
+              Indoor and outdoor sports infrastructure
+              for fitness, athletics, teamwork,
+              and competitive growth.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================================================= -->
+      <!-- MEDIUM -->
+      <!-- ================================================= -->
+
+      <div class="card medium-card">
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">🧪</div>
+
+            <h3>
+              Science Labs
+            </h3>
+
+            <p>
+              Fully equipped physics,
+              chemistry, and biology labs
+              with modern practical systems.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================================================= -->
+      <!-- WIDE -->
+      <!-- ================================================= -->
+
+      <div class="card wide-card">
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">🎨</div>
+
+            <h3>
+              Creative Innovation Studio
+            </h3>
+
+            <p>
+              Design, music, performance,
+              digital creativity, storytelling,
+              and innovation-driven collaborative spaces.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================================================= -->
+      <!-- SMALL -->
+      <!-- ================================================= -->
+
+      <div class="card small-card">
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">🚌</div>
+
+            <h3>
+              Smart Transport
+            </h3>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================================================= -->
+      <!-- SMALL -->
+      <!-- ================================================= -->
+
+      <div class="card small-card">
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">🍽️</div>
+
+            <h3>
+              Healthy Cafeteria
+            </h3>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================================================= -->
+      <!-- SMALL -->
+      <!-- ================================================= -->
+
+      <div class="card small-card">
+
+        <div class="card-content">
+
+          <div>
+
+            <div class="icon">🏫</div>
+
+            <h3>
+              Smart Classrooms
+            </h3>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+/* ================================================= */
+/* GLOW INTERACTION */
+/* ================================================= */
+
+const glows = document.querySelectorAll(".glow");
+
+document.addEventListener("mousemove",(e)=>{
+
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+
+  glows.forEach((glow,index)=>{
+
+    const speed = (index + 1) * 40;
+
+    glow.style.transform = `
+      translate(
+        ${x * speed}px,
+        ${y * speed}px
+      )
+    `;
+
+  });
+
+});
+
+/* ================================================= */
+/* 3D CARD INTERACTION */
+/* ================================================= */
+
+const cards = document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+
+  card.addEventListener("mousemove",(e)=>{
+
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / 18);
+    const rotateY = ((centerX - x) / 18);
+
+    card.style.transform = `
+      perspective(1200px)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      scale(1.02)
+    `;
+
+  });
+
+  card.addEventListener("mouseleave",()=>{
+
+    card.style.transform = `
+      perspective(1200px)
+      rotateX(0deg)
+      rotateY(0deg)
+      scale(1)
+    `;
+
+  });
+
+});
+
+/* ================================================= */
+/* SCROLL REVEAL */
+/* ================================================= */
+
+const observer = new IntersectionObserver((entries)=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+
+      entry.target.animate([
+
+        {
+          opacity:0,
+          transform:"translateY(80px) scale(.9)"
+        },
+
+        {
+          opacity:1,
+          transform:"translateY(0) scale(1)"
+        }
+
+      ],{
+
+        duration:1000,
+        easing:"cubic-bezier(.2,.8,.2,1)",
+        fill:"forwards"
+
+      });
+
+    }
+
+  });
+
+},{
+  threshold:0.15
+});
+
+cards.forEach(card=>{
+  observer.observe(card);
+});
+
+</script>
+
+</body>
+</html>

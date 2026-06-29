@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aims International School</title>
+  <link rel="manifest" href="/Indexs/manifest.json">
+  <link rel="icon" type="image/png" sizes="32x32" href="Indexs/android-chrome-512x512.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="Indexs/android-chrome-512x512.png">
+  <meta name="theme-color" content="#FFD648">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="">
+  <style data-name="main-in">
+:root{
+  --bg:#ffffff;
+  --panel: #800000;;
+  --card:#f1f5f9;
+  --muted:#6b7280;
+  --accent:#829C00;
+  --gap:12px;
+  --radius:12px;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:Inter,system-ui,Arial;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:#fff ;
+}
+
+header{
+  background: var(--panel);
+  padding:8px 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+/* LEFT SIDE (logo + name) */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:2px; /* exact spacing */
+  flex:1 1 auto;
+  min-width:0;
+}
+
+.brand img{
+  width:40px;
+  height:auto;
+}
+
+.brand h1{
+  margin:1;
+  font-size:clamp(19px, 2vw, 20px);
+  color:#fff;
+  white-space:nowrap;
+}
+
+/* RIGHT SIDE (nav) */
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+nav a{
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+}
+
+/* Hero */
+.hero{
+  margin-top: 0px;
+  padding:20px;
+  background:var(--accent);
+  color:#fff;
+
+}
+
+.hero h2{
+  margin:0 0 10px;
+}
+
+/* Section */
+.section{
+  margin-top:20px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:var(--gap);
+}
+
+.card{
+  background:var(--card);
+  padding:16px;
+  border-radius: 5px;
+  color:#111;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card h3{
+  margin:0 0 6px;
+}
+.footer{
+  background:var(--panel);
+  color:#fff;
+  margin-top:auto;
+  padding:20px 16px 10px;
+}
+
+/* container grid */
+.footer-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+/* boxes */
+.footer-box h3,
+.footer-box h4{
+  margin-bottom:8px;
+}
+
+.footer-box p,
+.footer-box a{
+  font-size:13px;
+  color:var(--muted);
+  display:block;
+  margin:4px 0;
+  text-decoration:none;
+}
+
+/* bottom */
+.footer-bottom{
+  margin-top:16px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.1);
+  text-align:center;
+  font-size:12px;
+  color:#000;
+}
+
+/* RESPONSIVE HEIGHT FIX */
+html, body{
+  height:100%;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* push footer down */
+.footer{
+  margin-top:auto;
+}
+@media (max-width: 6px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  nav {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+/* STYLE slider */
+.slider-container{
+  width:100%;
+  max-width:1200px;
+}
+
+/* Swiper */
+.swiper{
+  width:100%;
+  overflow: hidden;
+
+  --swiper-pagination-color: #fff;
+}
+
+/* Slide layout */
+.slide-inner{
+  position:relative;
+  width:100%;
+  height: 82vh;
+  overflow: hidden;
+}
+
+/* Image */
+.slide-inner img{
+  width:100%;
+  height: 100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Gradient overlay */
+
+/* Text on slide */
+.slide-text{
+  position:absolute;
+  bottom:20px;
+  left:16px;
+  color:#fff;
+}
+
+.slide-text h2{
+  margin:0;
+  font-size:clamp(18px,3vw,28px);
+}
+
+.slide-text p{
+  margin:4px 0 0;
+  font-size:clamp(12px,2vw,16px);
+}
+
+/* Pagination LEFT */
+.swiper-pagination{
+  text-align: right !important;
+  padding: 2px;
+  bottom:13px !important;
+}
+
+/* Bullet style */
+.swiper-pagination-bullet{
+  opacity:0.5;
+}
+
+.swiper-pagination-bullet-active{
+  opacity:1;
+  transform:scale(1.2);
+}
+
+   .bg-hero{
+  position:relative;
+  width:100%;
+  height: 100vh;
+  overflow:hidden;
+  background: #5a1f2b;
+}
+/* Each image layer */
+.bg-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  opacity:0;
+  transition:opacity 1.2s ease-in-out;
+}
+
+/* Visible slide */
+.bg-slide.active{
+  opacity: 100%;
+}
+
+/* Dark overlay for readability */
+.bg-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+}
+
+/* Content */
+.hero-content{
+  position:absolute;
+  bottom:2%;
+  left:16px;
+  color: ;
+  z-index:2;
+}
+
+.hero-content h1{
+  margin:0;
+  font-size:clamp(24px,5vw,48px);
+}
+
+.hero-content p{
+  margin-top:8px;
+  font-size:clamp(14px,2vw,20px);
+} 
+    /* ===== DESKTOP POSTER STYLE =====*/
+@media (min-width:1024px){
+
+  .bg-hero{
+    display:flex;
+    flex-wrap:nowrap; /* ❗ no grid wrapping */
+    gap:0.75rem;
+
+    aspect-ratio:unset;
+    height:clamp(420px, 70vh, 720px);
+
+    background:#5a1f2b;
+    padding:0.75rem;
+    align-items:center;
+  }
+
+  .bg-slide{
+    position:relative;
+    inset:auto;
+
+    opacity:1 !important;
+    transition:none;
+
+    flex:1 1 0;
+    min-width:0;
+    height:100%;
+
+    background-size:cover;
+    background-position:center;
+
+    border-radius:0.5rem;
+    overflow:hidden;
+  }
+
+  /* ===== 3 IMAGE PODIUM ===== */
+  .bg-hero.three .bg-slide:nth-child(1){
+    transform:scale(0.92);
+  }
+
+  .bg-hero.three .bg-slide:nth-child(2){
+    transform:scale(1.08);
+    z-index:2;
+  }
+
+  .bg-hero.three .bg-slide:nth-child(3){
+    transform:scale(0.92);
+  }
+
+  /* spacing balance */
+  .bg-hero.three{
+    justify-content:center;
+  }
+
+  .bg-hero.three .bg-slide{
+    flex:1 1 28%;
+  }
+
+  /* ===== 4+ IMAGES (ROW, NOT GRID) ===== */
+  .bg-hero.row .bg-slide{
+    flex:1 1 auto;
+  }
+
+  /* Content stays same */
+  .hero-content{
+    position:absolute;
+    bottom:2px;
+    left:16px;
+    right:16px;
+    z-index:5;
+  }
+}
+  </style>
+  <style data-name="same for styling">
+    /* ===== HEADER ICONS ===== */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ===== SEARCH OVERLAY ===== */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: ;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 2px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-close {
+  position: ;
+  top: ;
+  right: ;
+  width: ;
+  height: ;
+  border: none;
+  background: ;
+  border-radius: ;
+  cursor: pointer;
+  display: ;
+  align-items: ;
+  justify-content: right;
+  box-shadow: 
+}
+.search-close svg {
+  width: px;
+  height: px;
+  stroke: ;
+  stroke-width: ;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  background: transparent;
+  color: #333;
+  font-family: Inter, system-ui, Arial;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.search-bar-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: #523d35;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+.search-bar-btn:hover {
+  background: #3d2d28;
+}
+
+.search-bar-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+/* Search Results */
+.search-results {
+  width: 100%;
+  max-width: 600px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-results-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-result-item:hover {
+  background: #f5f5f5;
+}
+
+.search-result-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-result-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #523d35;
+  stroke-width: 2;
+}
+
+.search-result-info {
+  flex: 1;
+}
+
+.search-result-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.search-result-type {
+  font-size: 12px;
+  color: #888;
+}
+
+.search-no-results {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+}
+
+/* ===== MENU PANEL (FULL SCREEN) ===== */
+.menu-panel {
+  position: fixed;
+  inset: 0;
+  background: #523d35;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  transform: translateX( 100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-panel.active {
+  transform: translateX(0);
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-logo img {
+  width: 40px;
+  height: auto;
+}
+
+.menu-logo span {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.menu-close {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.menu-close:hover {
+  transform: scale(1.05);
+}
+
+.menu-close 
+
+.menu-content {
+  flex: 1;
+  padding: 30px 20px;
+  overflow-y: auto;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.menu-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-link svg {
+  width: 24px;
+  height: 24px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+
+.menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+}
+
+.menu-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-contact-title {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 12px;
+}
+
+.menu-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.menu-contact-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 2;
+}
+  </style>
+  <style data-name="header css">
+
+/* ===== HEADER ICONS ===== */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ===== HAMBURGER TO X ANIMATION ===== */
+.hamburger-icon {
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+
+.hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon span:nth-child(1) {
+  top: 4px;
+}
+
+.hamburger-icon span:nth-child(2) {
+  top: 10px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  top: 16px;
+}
+
+/* When menu is open - animate to X */
+.menu-open .hamburger-icon span:nth-child(1) {
+  top: 10px;
+  transform: rotate(45deg);
+}
+
+.menu-open .hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-open .hamburger-icon span:nth-child(3) {
+  top: 10px;
+  transform: rotate(-45deg);
+}
+
+/* ===== SEARCH OVERLAY ===== */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 16px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  background: transparent;
+  color: #333;
+  font-family: Inter, system-ui, Arial;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.search-bar-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--panel);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+.search-bar-btn:hover {
+  background: #3d2d28;
+}
+
+.search-bar-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+/* Search Results */
+.search-results {
+  width: 100%;
+  max-width: 600px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-results-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-result-item:hover {
+  background: #f5f5f5;
+}
+
+.search-result-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-result-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--panel);
+  stroke-width: 2;
+}
+
+.search-result-info {
+  flex: 1;
+}
+
+.search-result-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.search-result-type {
+  font-size: 12px;
+  color: #888;
+}
+
+.search-no-results {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+}
+
+/* ===== MENU PANEL (Below Header) ===== */
+.menu-panel {
+  position: fixed;
+  top: 56px; /* Height of header */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--panel);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-panel.active {
+  transform: translateX(0);
+}
+
+/* ===== BREADCRUMBS ===== */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px;
+  background: ;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.breadcrumbs a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: #fff;
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
+.breadcrumb-current {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ===== MENU CONTENT ===== */
+.menu-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-link {
+  display: block;
+  padding: 14px 16px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.menu-link:hover,
+.menu-link.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 16px 0;
+}
+
+/* ===== RESPONSIVE FOOTER ===== */
+.footer {
+  background: var(--panel);
+  color: #fff;
+  margin-top: auto;
+  padding: 30px 20px 15px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Wide screens - side by side */
+@media (min-width: 768px) {
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+  }
+  
+  .footer-box {
+    flex: 1;
+  }
+  
+  .footer-box:first-child {
+    flex: 1.5;
+  }
+}
+
+.footer-box h1 {
+  font-size: 25px;
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.footer-box .footer-tagline {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
+.footer-box .footer-affiliation {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.footer-box h4 {
+  font-size: 15px;
+  margin: 0 0 12px;
+  color: #fff;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.footer-contact p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 6px;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+</style>
+</head>
+<body>
+  <header>
+  <div class="brand">
+    <img src="/Resource /head.img/unnamed.png" alt="logo">
+    <h1>Aims International School</h1>
+  </div>
+  
+  <div class="header-icons">
+    <!-- Search Icon -->
+    <button class="icon-btn" id="searchBtn" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </svg>
+    </button>
+    
+    <!-- Hamburger Menu Icon (animates to X) -->
+    <button class="icon-btn" id="menuBtn" aria-label="Menu">
+      <div class="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+  </div>
+</header>
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-bar-container">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search pages, resources...">
+      <button class="search-bar-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="search-results" id="searchResults">
+    <div class="search-results-header">Search Results</div>
+    <div id="searchResultsList"></div>
+  </div>
+</div>
+<!-- MENU PANEL (FULL SCREEN) -->
+<div class="menu-panel" id="menuPanel">
+  <!-- Breadcrumbs at top -->
+  <div class="breadcrumbs" id="breadcrumbs">
+    
+  </div>
+  
+  <!-- Menu Content (Links populated by JS) -->
+  <div class="menu-content">
+    <nav class="menu-nav" id="menuNav">
+      <!-- Links will be injected by JavaScript from siteData -->
+    </nav>
+  </div>
+</div>
+
+  <!-- SWIPER CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
+  <!-- SLIDER -->
+  <div class="slider-container">
+    
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        
+        <!-- LONG STAY slide -->
+        <div class="swiper-slide" data-swiper-autoplay="6000">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?2">
+          </div>
+        </div>
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?1" alt="slide">
+            <div class="slide-text">
+              <h2>Admissions Open</h2>
+              <p>Enroll Now for 2026</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?2" alt="slide">
+            <div class="slide-text">
+              <h2>Smart Classrooms</h2>
+              <p>Modern digital learning</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?3" alt="slide">
+            <div class="slide-text">
+              <h2>Sports & Activities</h2>
+              <p>All-round development</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+  <div class="hero">
+    <h2>Welcome to Aims International School</h2>
+    <p>CBSE Affiliated | Excellence in Education</p>
+  </div>
+  
+  <div class="section">
+    <h2>Our Highlights</h2>
+    <div class="cards">
+      
+      <div class="card">
+        <h3>Qualified Teachers</h3>
+        <p>Experienced and CBSE-trained faculty.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Modern Labs</h3>
+        <p>Science and computer labs with latest tech.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Sports</h3>
+        <p>Physical development with full facilities.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Smart Classes</h3>
+        <p>Digital classrooms for better learning.</p>
+      </div>
+    </div>
+    <!------the fade display --->
+    <div class="bg-hero">
+      
+      <!-- Background layers -->
+      <div class="bg-slide active" style="background-image:url('/Resource /head.img/2026040512504184.png')"></div>
+      <div class="bg-slide" style="background-image:url('/Resource /head.img/2026040513160753.png')"></div>
+      <div class="bg-slide" style="background-image:url('/Resource /head.img/2026040511464809.png')"></div>
+      <div class="bg-slide" style="background-image:url('/Resource /head.img/2026040512042978.png')"></div>
+      <!-- Content -->
+      <div class="hero-content">
+        <h1>Aims International School</h1>
+        <p>Excellence in Education</p>
+      </div>
+    </div>
+    <br>
+  </div>
+  <div class="section">
+    <h2>Admissions Open</h2>
+    <div class="card">
+      <p>Enroll your child for academic excellence. Limited seats available.</p>
+      <button style="padding:10px 16px;border:none;background:var(--accent);color:#fff;border-radius:8px;">
+        Apply Now
+      </button>
+    </div>
+  </div>
+
+  
+  <footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-box">
+      <h1>Aims International School</h1>
+      <p class="footer-tagline">CBSE Affiliated institution focused on quality education</p>
+      <p class="footer-affiliation">Affiliation No.: 2131366</p>
+    </div>
+    
+    <div class="footer-box">
+      <h4>Quick Access</h4>
+      <div class="footer-links" id="footerLinks">
+        <!-- Links will be injected by JavaScript from siteData -->
+      </div>
+    </div>
+    
+    <div class="footer-box footer-contact">
+      <h4>Contact</h4>
+      <p>Lucknow, India</p>
+      <p>Email: Aimsinternationalsschool@gmail.com</p>
+      <p>Phone: +91 9235622947</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    Aims International School | CBSE Affiliated
+    
+  </div>
+  </footer>
+  <!-------------------------Scripts tag-->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="sw.js"></script>
+  <script>
+  // This is a single-line comment
+const swiper = new Swiper('.mySwiper', {
+  loop: true,
+  
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
+  
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+});
+
+// This is a single-line comment
+(function() {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  
+  if (isMobile) {
+    let meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = "viewport";
+      document.head.appendChild(meta);
+    }
+    
+    meta.content = "width=1200, initial-scale=0.3, user-scalable=no";
+    
+    document.body.style.minWidth = "120px";
+  }
+})();
+  const hero = document.querySelector('.bg-hero');
+  const slides = document.querySelectorAll('.bg-slide');
+  
+  const total = slides.length;
+  
+  function applyLayout() {
+    hero.classList.remove('three', 'row');
+    
+    if (window.innerWidth >= 1024) {
+      if (total === 3) {
+        hero.classList.add('three');
+      } else {
+        hero.classList.add('row');
+      }
+    }
+  }
+  
+  applyLayout();
+  
+  window.addEventListener('resize', applyLayout);
+  
+  /* ===== MOBILE SLIDER ONLY ===== */
+  let current = 0;
+  let interval;
+  
+  function changeSlide() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }
+  
+  function isMobile() {
+    return window.innerWidth < 1024;
+  }
+  
+  function start() {
+    interval = setInterval(changeSlide, 3000);
+  }
+  
+  function stop() {
+    clearInterval(interval);
+  }
+  
+  if (isMobile()) {
+    start();
+  }
+  
+  window.addEventListener('resize', () => {
+    stop();
+    if (isMobile()) {
+      start();
+    }
+  });
+</script>
+<script data-name="the header site">
+
+// ===== CENTRAL SITE DATA (All links in ONE place) =====
+const siteData = {
+  // Main navigation pages
+  pages: [
+    { title: 'Home', url: '/Indexs/index.html' },
+    { title: 'About Us', url: '' },
+    { title: 'Admissions', url: 'admissions.html' },
+    { title: 'Academics', url: 'academics.html' },
+    { title: 'Events', url: 'events.html' },
+    { title: 'Gallery', url: 'gallery.html' },
+    { title: 'Contact', url: 'contact.html' },
+  ],
+  
+  // Resources for search
+  resources: [
+    { title: 'Fee Structure', url: 'fee-structure.html' },
+    { title: 'Admission Form', url: 'admission-form.html' },
+    { title: 'School Calendar 2026', url: 'calendar.html' },
+    { title: 'CBSE Curriculum', url: 'curriculum.html' },
+    { title: 'Sports Facilities', url: 'sports.html' },
+    { title: 'Smart Classrooms', url: 'smart-classrooms.html' },
+    { title: 'Qualified Teachers', url: 'teachers.html' },
+    { title: 'Modern Labs', url: 'labs.html' },
+  ],
+  
+  // Quick access links for footer (subset of pages)
+  quickAccess: ['Home', 'About Us', 'Admissions', 'Gallery', 'Contact']
+};
+
+// ===== GET CURRENT PAGE =====
+function getCurrentPage() {
+  const path = window.location.pathname;
+  const filename = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+  
+  const allPages = [...siteData.pages, ...siteData.resources];
+  const found = allPages.find(p => p.url === filename);
+  
+  return found ? found.title : 'Home';
+}
+
+// ===== GENERATE SEARCH DATA =====
+function getSearchData() {
+  const pages = siteData.pages.map(p => ({ ...p, type: 'page' }));
+  const resources = siteData.resources.map(r => ({ ...r, type: 'resource' }));
+  return [...pages, ...resources];
+}
+
+// ===== POPULATE MENU LINKS =====
+function populateMenu() {
+  const menuNav = document.getElementById('menuNav');
+  const currentPage = getCurrentPage();
+  
+  let html = '';
+  siteData.pages.forEach(page => {
+    const isActive = page.title === currentPage ? 'active' : '';
+    html += `<a href="${page.url}" class="menu-link ${isActive}" data-page="${page.title}">${page.title}</a>`;
+  });
+  
+  html += '<div class="menu-divider"></div>';
+  
+  // Add some resources to menu
+  siteData.resources.slice(0, 3).forEach(resource => {
+    html += `<a href="${resource.url}" class="menu-link" data-page="${resource.title}">${resource.title}</a>`;
+  });
+  
+  menuNav.innerHTML = html;
+}
+
+// ===== POPULATE FOOTER LINKS =====
+function populateFooter() {
+  const footerLinks = document.getElementById('footerLinks');
+  
+  let html = '';
+  siteData.quickAccess.forEach(title => {
+    const page = siteData.pages.find(p => p.title === title);
+    if (page) {
+      html += `<a href="${page.url}">${page.title}</a>`;
+    }
+  });
+  
+  footerLinks.innerHTML = html;
+}
+
+// ===== UPDATE BREADCRUMBS =====
+function updateBreadcrumbs(pageName) {
+  const breadcrumbs = document.getElementById('breadcrumbs');
+  
+  if (pageName === 'Home') {
+    breadcrumbs.innerHTML = '<span class="breadcrumb-current">Home</span>';
+  } else {
+    breadcrumbs.innerHTML = `
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-current">${pageName}</span>
+    `;
+  }
+}
+
+// ===== DOM ELEMENTS =====
+const searchBtn = document.getElementById('searchBtn');
+const searchOverlay = document.getElementById('searchOverlay');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const searchResultsList = document.getElementById('searchResultsList');
+const menuBtn = document.getElementById('menuBtn');
+const menuPanel = document.getElementById('menuPanel');
+
+// ===== SEARCH FUNCTIONALITY =====
+searchBtn.addEventListener('click', () => {
+  searchOverlay.classList.add('active');
+  searchInput.focus();
+  document.body.style.overflow = 'hidden';
+});
+
+// Close search on overlay click
+searchOverlay.addEventListener('click', (e) => {
+  if (e.target === searchOverlay) {
+    searchOverlay.classList.remove('active');
+    searchInput.value = '';
+    searchResults.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Search input handler
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase().trim();
+  const searchData = getSearchData();
+  
+  if (query.length < 1) {
+    searchResults.classList.remove('active');
+    return;
+  }
+  
+  const filtered = searchData.filter(item =>
+    item.title.toLowerCase().includes(query)
+  );
+  
+  if (filtered.length > 0) {
+    searchResultsList.innerHTML = filtered.map(item => `
+      <a href="${item.url}" class="search-result-item">
+        <div class="search-result-icon">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+        </div>
+        <div class="search-result-info">
+          <div class="search-result-title">${item.title}</div>
+          <div class="search-result-type">${item.type}</div>
+        </div>
+      </a>
+    `).join('');
+  } else {
+    searchResultsList.innerHTML = `
+      <div class="search-no-results">
+        No results found for "${e.target.value}"
+      </div>
+    `;
+  }
+  
+  searchResults.classList.add('active');
+});
+
+// ===== MENU FUNCTIONALITY =====
+menuBtn.addEventListener('click', () => {
+  const isOpen = menuPanel.classList.contains('active');
+  
+  if (isOpen) {
+    // Close menu
+    menuPanel.classList.remove('active');
+    menuBtn.classList.remove('menu-open');
+    document.body.style.overflow = '';
+  } else {
+    // Open menu
+    menuPanel.classList.add('active');
+    menuBtn.classList.add('menu-open');
+    document.body.style.overflow = 'hidden';
+  }
+});
+
+// Update breadcrumbs when clicking menu links
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('menu-link')) {
+    const pageName = e.target.dataset.page;
+    updateBreadcrumbs(pageName);
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (searchOverlay.classList.contains('active')) {
+      searchOverlay.classList.remove('active');
+      searchInput.value = '';
+      searchResults.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    if (menuPanel.classList.contains('active')) {
+      menuPanel.classList.remove('active');
+      menuBtn.classList.remove('menu-open');
+      document.body.style.overflow = '';
+    }
+  }
+});
+
+// ===== INITIALIZE ON PAGE LOAD =====
+document.addEventListener('DOMContentLoaded', () => {
+  populateMenu();
+  populateFooter();
+  updateBreadcrumbs(getCurrentPage());
+});
+</script>
+
+</body>
+</html>

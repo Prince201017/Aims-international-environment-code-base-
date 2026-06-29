@@ -1,0 +1,2939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aims International School</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Indexs/android-chrome-512x512.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="Indexs/android-chrome-512x512.png">
+  <meta name="theme-color" content="#FFD648">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="">
+  <style data-name="main-in">
+:root{
+  --bg:#ffffff;
+  --panel: #800000;;
+  --card:#f1f5f9;
+  --muted:#6b7280;
+  --accent:#829C00;
+  --gap:12px;
+  --radius:12px;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:Inter,system-ui,Arial;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:#fff ;
+}
+
+header{
+  background: var(--panel);
+  padding:8px 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+/* LEFT SIDE (logo + name) */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:2px; /* exact spacing */
+  flex:1 1 auto;
+  min-width:0;
+}
+
+.brand img{
+  width:40px;
+  height:auto;
+}
+
+.brand h1{
+  margin:1;
+  font-size:clamp(19px, 2vw, 20px);
+  color:#fff;
+  white-space:nowrap;
+}
+
+/* RIGHT SIDE (nav) */
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+nav a{
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+}
+
+/* Hero */
+.hero{
+  margin-top: 0px;
+  padding:20px;
+  background:var(--accent);
+  color:#fff;
+
+}
+
+.hero h2{
+  margin:0 0 10px;
+}
+
+/* Section */
+.section{
+  margin-top:20px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:var(--gap);
+}
+
+.card{
+  background:var(--card);
+  padding:16px;
+  border-radius: 5px;
+  color:#111;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card h3{
+  margin:0 0 6px;
+}
+.footer{
+  background:var(--panel);
+  color:#fff;
+  margin-top:auto;
+  padding:20px 16px 10px;
+}
+
+/* container grid */
+.footer-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+/* boxes */
+.footer-box h3,
+.footer-box h4{
+  margin-bottom:8px;
+}
+
+.footer-box p,
+.footer-box a{
+  font-size:13px;
+  color:var(--muted);
+  display:block;
+  margin:4px 0;
+  text-decoration:none;
+}
+
+/* bottom */
+.footer-bottom{
+  margin-top:16px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.1);
+  text-align:center;
+  font-size:12px;
+  color:#000;
+}
+
+/* RESPONSIVE HEIGHT FIX */
+html, body{
+  height:100%;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* push footer down */
+.footer{
+  margin-top:auto;
+}
+@media (max-width: 6px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  nav {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+/* STYLE slider */
+.slider-container{
+  width:100%;
+  max-width:1200px;
+}
+
+/* Swiper */
+.swiper{
+  width:100%;
+  overflow: hidden;
+
+  --swiper-pagination-color: #fff;
+}
+
+/* Slide layout */
+.slide-inner{
+  position:relative;
+  width:100%;
+  height: 82vh;
+  overflow: hidden;
+}
+
+/* Image */
+.slide-inner img{
+  width:100%;
+  height: 100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Gradient overlay */
+
+/* Text on slide */
+.slide-text{
+  position:absolute;
+  bottom:20px;
+  left:16px;
+  color:#fff;
+}
+
+.slide-text h2{
+  margin:0;
+  font-size:clamp(18px,3vw,28px);
+}
+
+.slide-text p{
+  margin:4px 0 0;
+  font-size:clamp(12px,2vw,16px);
+}
+
+/* Pagination LEFT */
+.swiper-pagination{
+  text-align: right !important;
+  padding: 2px;
+  bottom:13px !important;
+}
+
+/* Bullet style */
+.swiper-pagination-bullet{
+  opacity:0.5;
+}
+
+.swiper-pagination-bullet-active{
+  opacity:1;
+  transform:scale(1.2);
+}
+
+   .bg-hero{
+  position:relative;
+  width:100%;
+  height: 100vh;
+  overflow:hidden;
+  background: #5a1f2b;
+}
+/* Each image layer */
+.bg-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  opacity:0;
+  transition:opacity 1.2s ease-in-out;
+}
+
+/* Visible slide */
+.bg-slide.active{
+  opacity: 100%;
+}
+
+/* Dark overlay for readability */
+.bg-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+}
+
+/* Content */
+.hero-content{
+  position:absolute;
+  bottom:2%;
+  left:16px;
+  color: ;
+  z-index:2;
+}
+
+.hero-content h1{
+  margin:0;
+  font-size:clamp(24px,5vw,48px);
+}
+
+.hero-content p{
+  margin-top:8px;
+  font-size:clamp(14px,2vw,20px);
+} 
+    /* ===== DESKTOP POSTER STYLE =====*/
+@media (min-width:1024px){
+
+  .bg-hero{
+    display:flex;
+    flex-wrap:nowrap; /* ❗ no grid wrapping */
+    gap:0.75rem;
+
+    aspect-ratio:unset;
+    height:clamp(420px, 70vh, 720px);
+
+    background:#5a1f2b;
+    padding:0.75rem;
+    align-items:center;
+  }
+
+  .bg-slide{
+    position:relative;
+    inset:auto;
+
+    opacity:1 !important;
+    transition:none;
+
+    flex:1 1 0;
+    min-width:0;
+    height:100%;
+
+    background-size:cover;
+    background-position:center;
+
+    border-radius:0.5rem;
+    overflow:hidden;
+  }
+
+  /* ===== 3 IMAGE PODIUM ===== */
+  .bg-hero.three .bg-slide:nth-child(1){
+    transform:scale(0.92);
+  }
+
+  .bg-hero.three .bg-slide:nth-child(2){
+    transform:scale(1.08);
+    z-index:2;
+  }
+
+  .bg-hero.three .bg-slide:nth-child(3){
+    transform:scale(0.92);
+  }
+
+  /* spacing balance */
+  .bg-hero.three{
+    justify-content:center;
+  }
+
+  .bg-hero.three .bg-slide{
+    flex:1 1 28%;
+  }
+
+  /* ===== 4+ IMAGES (ROW, NOT GRID) ===== */
+  .bg-hero.row .bg-slide{
+    flex:1 1 auto;
+  }
+
+  /* Content stays same */
+  .hero-content{
+    position:absolute;
+    bottom:2px;
+    left:16px;
+    right:16px;
+    z-index:5;
+  }
+}
+  </style>
+  <style data-name="same for styling">
+    /* ===== HEADER ICONS ===== */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ===== SEARCH OVERLAY ===== */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: ;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 2px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-close {
+  position: ;
+  top: ;
+  right: ;
+  width: ;
+  height: ;
+  border: none;
+  background: ;
+  border-radius: ;
+  cursor: pointer;
+  display: ;
+  align-items: ;
+  justify-content: right;
+  box-shadow: 
+}
+.search-close svg {
+  width: px;
+  height: px;
+  stroke: ;
+  stroke-width: ;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  background: transparent;
+  color: #333;
+  font-family: Inter, system-ui, Arial;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.search-bar-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: #523d35;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+.search-bar-btn:hover {
+  background: #3d2d28;
+}
+
+.search-bar-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+/* Search Results */
+.search-results {
+  width: 100%;
+  max-width: 600px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-results-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-result-item:hover {
+  background: #f5f5f5;
+}
+
+.search-result-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-result-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #523d35;
+  stroke-width: 2;
+}
+
+.search-result-info {
+  flex: 1;
+}
+
+.search-result-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.search-result-type {
+  font-size: 12px;
+  color: #888;
+}
+
+.search-no-results {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+}
+
+/* ===== MENU PANEL (FULL SCREEN) ===== */
+.menu-panel {
+  position: fixed;
+  inset: 0;
+  background: #523d35;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  transform: translateX( 100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-panel.active {
+  transform: translateX(0);
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-logo img {
+  width: 40px;
+  height: auto;
+}
+
+.menu-logo span {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.menu-close {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.menu-close:hover {
+  transform: scale(1.05);
+}
+
+.menu-close 
+
+.menu-content {
+  flex: 1;
+  padding: 30px 20px;
+  overflow-y: auto;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.menu-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-link svg {
+  width: 24px;
+  height: 24px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+
+.menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+}
+
+.menu-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-contact-title {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 12px;
+}
+
+.menu-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.menu-contact-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 2;
+}
+  </style>
+  <style data-name="header css">
+
+```css
+/* ===== HEADER ICONS ===== */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ===== HAMBURGER TO X ANIMATION ===== */
+.hamburger-icon {
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+
+.hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon span:nth-child(1) {
+  top: 4px;
+}
+
+.hamburger-icon span:nth-child(2) {
+  top: 10px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  top: 16px;
+}
+
+/* When menu is open - animate to X */
+.menu-open .hamburger-icon span:nth-child(1) {
+  top: 10px;
+  transform: rotate(45deg);
+}
+
+.menu-open .hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-open .hamburger-icon span:nth-child(3) {
+  top: 10px;
+  transform: rotate(-45deg);
+}
+
+/* ===== SEARCH OVERLAY ===== */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 16px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  background: transparent;
+  color: #333;
+  font-family: Inter, system-ui, Arial;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.search-bar-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--panel);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+.search-bar-btn:hover {
+  background: #3d2d28;
+}
+
+.search-bar-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+/* Search Results */
+.search-results {
+  width: 100%;
+  max-width: 600px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-results-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-result-item:hover {
+  background: #f5f5f5;
+}
+
+.search-result-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-result-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--panel);
+  stroke-width: 2;
+}
+
+.search-result-info {
+  flex: 1;
+}
+
+.search-result-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.search-result-type {
+  font-size: 12px;
+  color: #888;
+}
+
+.search-no-results {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+}
+
+/* ===== MENU PANEL (Below Header) ===== */
+.menu-panel {
+  position: fixed;
+  top: 56px; /* Height of header */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--panel);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-panel.active {
+  transform: translateX(0);
+}
+
+/* ===== BREADCRUMBS ===== */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px;
+  background: ;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.breadcrumbs a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: #fff;
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
+.breadcrumb-current {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ===== MENU CONTENT ===== */
+.menu-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-link {
+  display: block;
+  padding: 14px 16px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.menu-link:hover,
+.menu-link.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 16px 0;
+}
+
+/* ===== RESPONSIVE FOOTER ===== */
+.footer {
+  background: var(--panel);
+  color: #fff;
+  margin-top: auto;
+  padding: 30px 20px 15px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Wide screens - side by side */
+@media (min-width: 768px) {
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+  }
+  
+  .footer-box {
+    flex: 1;
+  }
+  
+  .footer-box:first-child {
+    flex: 1.5;
+  }
+}
+
+.footer-box h1 {
+  font-size: 25px;
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.footer-box .footer-tagline {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
+.footer-box .footer-affiliation {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.footer-box h4 {
+  font-size: 15px;
+  margin: 0 0 12px;
+  color: #fff;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.footer-contact p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 6px;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+</style>
+  <style data-name="DESIGNER DROPDOWN ">
+  /* ===== PWA INSTALL CARD ===== */
+  .pwa-install-card {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .pwa-install-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .pwa-install-card:active {
+    transform: scale(0.98);
+  }
+  
+  .pwa-card-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .pwa-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--panel);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .pwa-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: #fff;
+    stroke-width: 2;
+    fill: none;
+  }
+  
+  .pwa-text {
+    flex: 1;
+  }
+  
+  .pwa-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .pwa-subtitle {
+    font-size: 13px;
+    color: #666;
+  }
+  
+  .pwa-arrow {
+    width: 24px;
+    height: 24px;
+    stroke: var(--panel);
+    stroke-width: 2;
+  }
+  
+  /* ===== DESIGNER DROPDOWN ===== */
+  .designer-dropdown {
+    margin: 20px;
+  }
+  
+  .designer-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+  }
+  
+  .designer-label:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .designer-label-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+  }
+  
+  .designer-label-left span:first-child {
+    color: #fff;
+    font-weight: 500;
+  }
+  
+  .designer-arrow {
+    width: 20px;
+    height: 20px;
+    stroke: rgba(255, 255, 255, 0.6);
+    stroke-width: 2;
+    transition: transform 0.3s ease;
+  }
+  
+  .designer-dropdown.active .designer-arrow {
+    transform: rotate(180deg);
+  }
+  
+  /* Designer Card (Drawer) */
+  .designer-card {
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+    padding: 0 16px;
+  }
+  
+  .designer-dropdown.active .designer-card {
+    max-height: 300px;
+    padding: 20px 16px;
+  }
+  
+  .designer-dropdown.active .designer-label {
+    background: #fff;
+    color: #333;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .designer-dropdown.active .designer-label-left {
+    color: #333;
+  }
+  
+  .designer-dropdown.active .designer-label-left span:first-child {
+    color: #333;
+  }
+  
+  .designer-dropdown.active .designer-arrow {
+    stroke: #333;
+  }
+  
+  .designer-profile {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .designer-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--panel);
+    flex-shrink: 0;
+  }
+  
+  .designer-info {
+    flex: 1;
+  }
+  
+  .designer-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .designer-email {
+    font-size: 13px;
+    color: #000;
+    margin-bottom: 12px;
+  }
+  
+  .designer-visit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--panel);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  
+  .designer-visit:hover {
+    text-decoration: underline;
+  }
+  
+  .designer-visit svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--panel);
+    stroke-width: 2;
+  }
+  
+  .designer-socials {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .designer-social {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f0f0f0;
+    transition: background 0.2s ease;
+  }
+  
+  .designer-social:hover {
+    background: #e0e0e0;
+  }
+  
+  .designer-social svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--panel);
+  }
+</style>
+<style data-name="oAuth registration">
+
+   /* Menu divider */
+    .menu-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 6px 16px; }
+
+
+
+
+    /* Account section inside menu */
+    .menu-account {
+      padding: 14px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .menu-account .acc-info {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .menu-account .acc-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: #fff; font-weight: 700; overflow: hidden;
+    }
+    .menu-account .acc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .menu-account .acc-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .menu-account .acc-email { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .btn-menu-auth {
+      width: 100%; padding: 9px; border-radius: 8px; border: none; cursor: pointer;
+      font-size: 14px; font-weight: 600; transition: opacity 0.2s;
+    }
+    .btn-menu-auth:hover { opacity: 0.85; }
+    .btn-signin { background: var(--accent); color: #fff; margin-bottom: 6px; }
+    .btn-signout { background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* =============================================
+       AUTH MODAL
+    ============================================= */
+    .auth-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      z-index: 1000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .auth-modal-overlay.show { opacity: 1; pointer-events: all; }
+
+    .auth-card {
+      background: #fff; border-radius: 20px; width: min(420px, 94vw);
+      padding: 32px 28px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      transform: translateY(20px); transition: transform 0.3s;
+    }
+    .auth-modal-overlay.show .auth-card { transform: translateY(0); }
+
+    .auth-school-logo {
+      display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 22px;
+    }
+    .auth-school-logo img {
+      width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--panel); box-shadow: 0 4px 12px rgba(82,61,53,0.2);
+    }
+    .auth-school-logo h2 { margin: 0; font-size: 17px; color: var(--panel); font-weight: 700; text-align: center; }
+    .auth-school-logo p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+
+    .auth-tabs { display: flex; border-bottom: 2px solid #e5e7eb; margin-bottom: 22px; }
+    .auth-tab {
+      flex: 1; padding: 10px; border: none; background: none; cursor: pointer;
+      font-size: 14px; font-weight: 600; color: var(--muted);
+      border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s;
+    }
+    .auth-tab.active { color: var(--panel); border-bottom-color: var(--panel); }
+
+    .auth-form { display: none; }
+    .auth-form.active { display: block; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
+    .form-group input {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db;
+      border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus { border-color: var(--panel); }
+
+    .btn-auth-submit {
+      width: 100%; padding: 11px; border: none; border-radius: 10px;
+      background: var(--panel); color: #fff; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s; margin-top: 4px;
+    }
+    .btn-auth-submit:hover { background: #3a2a24; }
+
+    .auth-divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+    .auth-divider span { font-size: 12px; color: var(--muted); }
+
+    .btn-google {
+      width: 100%; padding: 11px; border: 1.5px solid #d1d5db; border-radius: 10px;
+      background: #fff; color: #222; font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 10px; transition: background 0.2s;
+    }
+    .btn-google:hover { background: #f9fafb; }
+    .btn-google img { width: 20px; height: 20px; }
+
+    .auth-policy { font-size: 11px; color: var(--muted); text-align: center; margin-top: 14px; line-height: 1.5; }
+    .auth-policy a { color: var(--panel); text-decoration: underline; }
+
+    .auth-msg { font-size: 13px; text-align: center; margin-top: 10px; padding: 8px; border-radius: 8px; }
+    .auth-msg.success { background: #d1fae5; color: #065f46; }
+    .auth-msg.error { background: #fee2e2; color: #991b1b; }
+
+    .auth-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; cursor: pointer; font-size: 22px; color: #888; line-height: 1;
+    }
+
+    /* =============================================
+       REGISTRATION FORM MODAL
+    ============================================= */
+    .reg-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 1000; display: flex; align-items: flex-start; justify-content: center;
+      overflow-y: auto; padding: 20px 10px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .reg-modal-overlay.show { opacity: 1; pointer-events: all; }
+
+    .reg-card {
+      background: #fff; border-radius: 18px; width: min(680px, 100%);
+      padding: 28px 24px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .reg-header { margin-bottom: 22px; }
+    .reg-header h2 { margin: 0 0 4px; font-size: 20px; color: var(--panel); }
+    .reg-header p { margin: 0; font-size: 13px; color: var(--muted); }
+    .reg-id-badge {
+      display: inline-block; background: var(--panel); color: #fff;
+      font-size: 13px; font-weight: 700; padding: 4px 14px; border-radius: 99px;
+      margin-top: 8px; letter-spacing: 1px;
+    }
+
+    .reg-section-title {
+      font-size: 13px; font-weight: 700; color: var(--panel);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin: 20px 0 12px; padding-bottom: 6px;
+      border-bottom: 2px solid var(--card);
+    }
+
+    .reg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+
+    .reg-group { margin-bottom: 0; }
+    .reg-group label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
+    .reg-group input,
+    .reg-group select,
+    .reg-group textarea {
+      width: 100%; padding: 9px 12px; border: 1.5px solid #d1d5db;
+      border-radius: 8px; font-size: 13px; outline: none;
+      transition: border-color 0.2s; background: #fff; color: #222;
+    }
+    .reg-group input:focus,
+    .reg-group select:focus,
+    .reg-group textarea:focus { border-color: var(--panel); }
+
+    .phone-wrap { display: flex; gap: 6px; }
+    .phone-flag {
+      display: flex; align-items: center; gap: 4px;
+      padding: 9px 10px; border: 1.5px solid #d1d5db; border-radius: 8px;
+      font-size: 13px; background: #f9fafb; white-space: nowrap;
+    }
+
+    .upload-box {
+      border: 2px dashed #d1d5db; border-radius: 10px;
+      padding: 16px; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s; position: relative;
+    }
+    .upload-box:hover { border-color: var(--panel); background: #fafafa; }
+    .upload-box input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .upload-box .up-icon { font-size: 28px; }
+    .upload-box .up-label { font-size: 13px; color: #555; margin-top: 4px; }
+    .upload-box .up-hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .upload-box .up-filename { font-size: 12px; color: var(--accent); margin-top: 4px; font-weight: 600; }
+
+    .agree-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 10px; }
+    .agree-group input[type="checkbox"] { margin-top: 2px; accent-color: var(--panel); width: 16px; height: 16px; flex-shrink: 0; }
+    .agree-group label { font-size: 13px; color: #444; line-height: 1.5; }
+    .agree-group label a { color: var(--panel); }
+
+    .btn-reg-submit {
+      width: 100%; padding: 13px; border: none; border-radius: 10px;
+      background: var(--panel); color: #fff; font-size: 15px; font-weight: 700;
+      cursor: pointer; margin-top: 20px; transition: background 0.2s;
+    }
+    .btn-reg-submit:hover { background: #3a2a24; }
+    .btn-reg-submit:disabled { background: #aaa; cursor: not-allowed; }
+
+    .reg-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; cursor: pointer; font-size: 22px; color: #888;
+    }
+
+    /* =============================================
+       REGISTRATION STATUS PAGE
+    ============================================= */
+    .reg-status-overlay {
+      position: fixed; inset: 0; background: #f8fafc;
+      z-index: 990; display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .reg-status-overlay.show { display: flex; }
+
+    .reg-status-card {
+      background: #fff; border-radius: 20px;
+      width: min(480px, 100%); padding: 32px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12); text-align: center;
+    }
+    .status-icon { font-size: 56px; margin-bottom: 12px; }
+    .status-reg-id {
+      font-size: 22px; font-weight: 800; color: var(--panel);
+      letter-spacing: 2px; margin: 0 0 6px;
+    }
+    .status-label {
+      display: inline-block; padding: 5px 18px; border-radius: 99px;
+      font-size: 13px; font-weight: 700; margin: 10px 0;
+    }
+    .status-label.pending { background: #fef3c7; color: #92400e; }
+    .status-label.approved { background: #d1fae5; color: #065f46; }
+    .status-label.rejected { background: #fee2e2; color: #991b1b; }
+
+    .visit-info {
+      background: var(--card); border-radius: 10px; padding: 14px;
+      margin-top: 14px; font-size: 14px; color: #333; text-align: left;
+    }
+    .visit-info strong { color: var(--panel); }
+
+    .btn-track { margin-top: 16px; padding: 10px 28px; border-radius: 99px; border: none;
+      background: var(--panel); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+    /* =============================================
+       ENQUIRY BUTTON (floating)
+    ============================================= */
+    .enquiry-fab {
+      position: fixed; bottom: 24px; right: 20px; z-index: 700;
+      background: var(--accent); color: #fff; border: none; border-radius: 99px;
+      padding: 12px 20px; font-size: 14px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(130,156,0,0.4);
+      display: flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .enquiry-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(130,156,0,0.5); }
+
+    /* Enquiry Modal */
+    .enquiry-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 1000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .enquiry-modal-overlay.show { opacity: 1; pointer-events: all; }
+    .enquiry-card {
+      background: #fff; border-radius: 18px; width: min(420px, 94vw);
+      padding: 28px 24px; position: relative;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+    }
+    .enquiry-card h3 { margin: 0 0 18px; font-size: 18px; color: var(--panel); }
+    .btn-enquiry-submit {
+      width: 100%; padding: 11px; border: none; border-radius: 10px;
+      background: var(--accent); color: #fff; font-size: 15px; font-weight: 700;
+      cursor: pointer; margin-top: 10px;
+    }
+    .enquiry-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; cursor: pointer; font-size: 22px; color: #888;
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      padding: 40px; background: var(--accent); color: #fff;
+    }
+    .hero h2 { margin: 0 0 6px; font-size: clamp(18px, 3vw, 26px); }
+    .hero p { margin: 0; font-size: 14px; opacity: 0.9; }
+
+    /* SECTIONS */
+    .section { padding: 20px 16px; }
+    .section > h2 { color: var(--panel); margin: 0 0 14px; font-size: 20px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: var(--gap); }
+    .card { background: var(--card); padding: 16px; border-radius: 8px; color: #111; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .card h3 { margin: 0 0 6px; font-size: 15px; }
+    .card p { margin: 0; font-size: 13px; color: var(--muted); }
+
+   
+   
+    
+    /* Apply Now btn */
+    .btn-apply {
+      padding: 11px 22px; border: none; border-radius: 8px;
+      background: var(--accent); color: #fff; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s; margin-top: 10px;
+    }
+    .btn-apply:hover { background: #0A1F44; }
+
+    /* =============================================
+       FOOTER (responsive, no SVG icons)
+    ============================================= */
+    
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: #1f2937; color: #fff; padding: 10px 20px;
+      border-radius: 99px; font-size: 13px; z-index: 2000;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+  <header>
+  <div class="brand">
+    <img src="/Resource /head.img/unnamed.png" alt="logo">
+    <h1>Aims International School</h1>
+  </div>
+  
+  <div class="header-icons">
+    <!-- Search Icon -->
+    <button class="icon-btn" id="searchBtn" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </svg>
+    </button>
+    
+    <!-- Hamburger Menu Icon (animates to X) -->
+    <button class="icon-btn" id="menuBtn" aria-label="Menu">
+      <div class="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+  </div>
+</header>
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-bar-container">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search pages, resources...">
+      <button class="search-bar-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="search-results" id="searchResults">
+    <div class="search-results-header">Search Results</div>
+    <div id="searchResultsList"></div>
+  </div>
+</div>
+<!-- MENU PANEL (FULL SCREEN) -->
+<div class="menu-panel" id="menuPanel">
+  <!-- Breadcrumbs at top -->
+  <div class="breadcrumbs" id="breadcrumbs">
+    
+  </div>
+  
+  <!-- Menu Content (Links populated by JS) -->
+  <div class="menu-content">
+    <nav class="menu-nav" id="menuNav">
+      <!-- Links will be injected by JavaScript from siteData -->
+    </nav>
+    <!-- Account section -->
+<div class="menu-account">
+  <div class="acc-info" id="menuAccInfo">
+    <div class="acc-avatar" id="menuAvatar">?</div>
+    <div>
+      <div class="acc-name" id="menuName">Guest</div>
+      <div class="acc-email" id="menuEmail">Not signed in</div>
+    </div>
+  </div>
+  <div id="menuAuthBtns">
+    <button class="btn-menu-auth btn-signin" onclick="openAuthModal('signin')">Sign In / Sign Up</button>
+  </div>
+</div>
+</div>
+</div>
+
+  <!-- SWIPER CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
+  <!-- SLIDER -->
+  <div class="slider-container">
+    
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        
+        <!-- LONG STAY slide -->
+        <div class="swiper-slide" data-swiper-autoplay="6000">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?2">
+          </div>
+        </div>
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?1" alt="slide">
+            <div class="slide-text">
+              <h2>Admissions Open</h2>
+              <p>Enroll Now for 2026</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?2" alt="slide">
+            <div class="slide-text">
+              <h2>Smart Classrooms</h2>
+              <p>Modern digital learning</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div class="slide-inner">
+            <img src="https://picsum.photos/1200/500?3" alt="slide">
+            <div class="slide-text">
+              <h2>Sports & Activities</h2>
+              <p>All-round development</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+  <div class="hero">
+    <h2>Welcome to Aims International School</h2>
+    <p>CBSE Affiliated | Excellence in Education</p>
+  </div>
+  
+  <div class="section">
+    <h2>Our Highlights</h2>
+    <div class="cards">
+      
+      <div class="card">
+        <h3>Qualified Teachers</h3>
+        <p>Experienced and CBSE-trained faculty.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Modern Labs</h3>
+        <p>Science and computer labs with latest tech.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Sports</h3>
+        <p>Physical development with full facilities.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Smart Classes</h3>
+        <p>Digital classrooms for better learning.</p>
+      </div>
+    </div>
+    <!------the fade display --->
+    <div class="bg-hero">
+      <!-- Background layers -->
+      <div class="bg-slide active" style="background-image:url('/Resource /head.img/2026040512504184.png')"></div>
+      <div class="bg-slide" style="background-image:url('/Resource /head.img/2026040513160753.png')"></div>
+      <div class="bg-slide" style="background-image:url('/Resource /head.img/2026040511464809.png')"></div>
+      <div class="bg-slide" style="background-image:url('/Resource /head.img/2026040512042978.png')"></div>
+      <!-- Content -->
+      <div class="hero-content">
+        <h1>Aims International School</h1>
+        <p>Excellence in Education</p>
+      </div>
+    </div>
+    </div>
+    <br>
+      <div class="section">
+    <h2>Admissions Open 2025-26</h2>
+    <div class="card">
+      <p></p>
+      <button class="btn-apply" onclick="openRegModal()">Apply Now</button>
+    </div>
+  </div>
+  </div>
+        <!-- PWA Install Card -->
+      <div class="pwa-install-card" id="pwaInstallCard">
+        <div class="pwa-card-content">
+          <div class="pwa-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+          </div>
+          <div class="pwa-text">
+            <div class="pwa-title">Click here to install Aims</div>
+            <div class="pwa-subtitle">Install our app for quick access</div>
+          </div>
+          <svg class="pwa-arrow" viewBox="0 0 24 24" fill="none">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </div>
+      </div>
+        <!-- ==========================================
+       AUTH MODAL
+  =========================================== -->
+  <div class="auth-modal-overlay" id="authModal">
+    <div class="auth-card">
+      <button class="auth-close" onclick="closeAuthModal()">&#x2715;</button>
+      <div class="auth-school-logo">
+        <img src="/Resource /head.img/unnamed.png" alt="Aims Logo">
+        <h2>Aims International School</h2>
+        <p>Bahraich, Uttar Pradesh</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</button>
+        <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <div class="auth-form active" id="signinForm">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="siEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="siPassword" placeholder="Enter password">
+        </div>
+        <button class="btn-auth-submit" onclick="doSignIn()">Sign In</button>
+
+        <div class="auth-divider"><span>or continue with</span></div>
+        <button class="btn-google" onclick="doGoogleAuth()">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+          Continue with Google
+        </button>
+        <div id="siMsg" class="auth-msg" style="display:none;"></div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div class="auth-form" id="signupForm">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="suName" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="suEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="suPassword" placeholder="Min. 6 characters">
+        </div>
+        <button class="btn-auth-submit" onclick="doSignUp()">Create Account</button>
+
+        <div class="auth-divider"><span>or</span></div>
+        <button class="btn-google" onclick="doGoogleAuth()">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+          Sign up with Google
+        </button>
+        <div id="suMsg" class="auth-msg" style="display:none;"></div>
+      </div>
+
+      <p class="auth-policy">
+        By continuing you agree to our
+        <a href="#">Privacy Policy</a> &amp; <a href="#">Terms of Service</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       REGISTRATION FORM MODAL
+  =========================================== -->
+  <div class="reg-modal-overlay" id="regModal">
+    <div class="reg-card">
+      <button class="reg-close" onclick="closeRegModal()">&#x2715;</button>
+
+      <div class="reg-header">
+        <h2>Admission Registration Form</h2>
+        <p>Aims International School, Bahraich &mdash; 2025-26</p>
+        <div class="reg-id-badge" id="regIdDisplay">Generating ID...</div>
+      </div>
+
+      <form id="regForm" onsubmit="submitRegistration(event)">
+        <input type="hidden" id="regId">
+
+        <!-- Personal Info -->
+        <div class="reg-section-title">Applicant Information</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Applicant Name *</label>
+            <input type="text" id="rApplicantName" required placeholder="Full name">
+          </div>
+          <div class="reg-group">
+            <label>Gender *</label>
+            <select id="rGender" required>
+              <option value="">Select Gender</option>
+              <option>Male</option><option>Female</option><option>Other</option>
+            </select>
+          </div>
+          <div class="reg-group">
+            <label>Date of Birth (DD/MM/YYYY) *</label>
+            <input type="date" id="rDob" required>
+          </div>
+          <div class="reg-group">
+            <label>Mother Name *</label>
+            <input type="text" id="rMotherName" required placeholder="Mother's full name">
+          </div>
+          <div class="reg-group">
+            <label>Father Name *</label>
+            <input type="text" id="rFatherName" required placeholder="Father's full name">
+          </div>
+          <div class="reg-group">
+            <label>Applied For Class *</label>
+            <select id="rClass" required>
+              <option value="">Select Class</option>
+              <option value="LKG">LKG</option><option value="UKG">UKG</option>
+              <option value="1">Class 1</option><option value="2">Class 2</option>
+              <option value="3">Class 3</option><option value="4">Class 4</option>
+              <option value="5">Class 5</option><option value="6">Class 6</option>
+              <option value="7">Class 7</option><option value="8">Class 8</option>
+              <option value="9">Class 9</option><option value="10">Class 10</option>
+              <option value="11">Class 11</option><option value="12">Class 12</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="reg-section-title">Contact Details</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Residential Contact *</label>
+            <div class="phone-wrap">
+              <div class="phone-flag">&#x1F1EE;&#x1F1F3; +91</div>
+              <input type="tel" id="rPhone" required placeholder="10-digit number" maxlength="10" style="flex:1;">
+            </div>
+          </div>
+          <div class="reg-group">
+            <label>Alternate Contact (optional)</label>
+            <div class="phone-wrap">
+              <div class="phone-flag">&#x1F1EE;&#x1F1F3; +91</div>
+              <input type="tel" id="rAltPhone" placeholder="10-digit number" maxlength="10" style="flex:1;">
+            </div>
+          </div>
+          <div class="reg-group">
+            <label>Gmail Address *</label>
+            <input type="email" id="rGmail" required placeholder="example@gmail.com">
+          </div>
+          <div class="reg-group" style="grid-column:1/-1;">
+            <label>Residence Address *</label>
+            <textarea id="rAddress" required rows="2" placeholder="Full address with pin code"></textarea>
+          </div>
+        </div>
+
+        <!-- Category & Religion -->
+        <div class="reg-section-title">Category &amp; Religion</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Category *</label>
+            <select id="rCategory" required>
+              <option value="">Select Category</option>
+              <option>General</option><option>OBC</option><option>SC</option><option>ST</option>
+            </select>
+          </div>
+          <div class="reg-group">
+            <label>Religion *</label>
+            <select id="rReligion" required>
+              <option value="">Select Religion</option>
+              <option>Hindu</option><option>Sikh</option><option>Christian</option>
+              <option>Muslim</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Document Uploads -->
+        <div class="reg-section-title">Document Upload</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Applicant Photo *</label>
+            <div class="upload-box" id="photoBox">
+              <input type="file" id="rPhoto" accept="image/*" onchange="handleFileSelect('rPhoto','photoBox','photoName')" required>
+              <div class="up-icon">&#128247;</div>
+              <div class="up-label">Click to upload photo</div>
+              <div class="up-hint">Max 100MB &mdash; JPG, PNG</div>
+              <div class="up-filename" id="photoName"></div>
+            </div>
+          </div>
+          <div class="reg-group">
+            <label>TC / DOB Certificate *</label>
+            <div class="upload-box" id="tcBox">
+              <input type="file" id="rTC" accept=".pdf,image/*" onchange="handleFileSelect('rTC','tcBox','tcName')" required>
+              <div class="up-icon">&#128196;</div>
+              <div class="up-label">Upload TC or Birth Certificate</div>
+              <div class="up-hint">PDF or Image &mdash; Max 100MB</div>
+              <div class="up-filename" id="tcName"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Previous School -->
+        <div class="reg-section-title">Previous School Details (if applicable)</div>
+        <div class="reg-grid">
+          <div class="reg-group">
+            <label>Previous School Name</label>
+            <input type="text" id="rPrevSchool" placeholder="School name">
+          </div>
+          <div class="reg-group">
+            <label>Class Passed</label>
+            <input type="text" id="rPrevClass" placeholder="e.g. Class 5">
+          </div>
+          <div class="reg-group">
+            <label>Passing Year</label>
+            <input type="text" id="rPrevYear" placeholder="e.g. 2024" maxlength="4">
+          </div>
+          <div class="reg-group">
+            <label>Marks Obtained / Percentage</label>
+            <input type="text" id="rPrevMarks" placeholder="e.g. 85%">
+          </div>
+          <div class="reg-group" style="grid-column:1/-1;">
+            <label>Upload Marksheet</label>
+            <div class="upload-box">
+              <input type="file" id="rMarksheet" accept=".pdf,image/*" onchange="handleFileSelect('rMarksheet','msBox','msName')">
+              <div class="up-icon">&#128203;</div>
+              <div class="up-label">Upload Previous Marksheet</div>
+              <div class="up-hint">PDF or Image &mdash; Optional</div>
+              <div class="up-filename" id="msName"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agreement -->
+        <div class="reg-section-title">Declaration</div>
+        <div class="agree-group">
+          <input type="checkbox" id="agreeDetails" required>
+          <label for="agreeDetails">I hereby declare that all the above details are true and correct as per the original documents. Any false information may result in cancellation of admission.</label>
+        </div>
+        <div class="agree-group">
+          <input type="checkbox" id="agreeTerms" required>
+          <label for="agreeTerms">I have read and agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a> of Aims International School.</label>
+        </div>
+
+        <button type="submit" class="btn-reg-submit" id="regSubmitBtn">Submit Registration</button>
+        <div id="regMsg" class="auth-msg" style="display:none; margin-top:10px;"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       REGISTRATION STATUS
+  =========================================== -->
+  <div class="reg-status-overlay" id="regStatusOverlay">
+    <div class="reg-status-card">
+      <div class="status-icon" id="statusIcon">&#128203;</div>
+      <p style="color:#666;font-size:14px;margin:0;">Registration ID</p>
+      <div class="status-reg-id" id="statusRegId">--</div>
+      <div id="statusLabel" class="status-label pending">Pending Review</div>
+      <p id="statusMsg" style="font-size:14px;color:#555;margin:10px 0 0;"></p>
+      <div class="visit-info" id="visitInfo" style="display:none;">
+        <strong>Visit Schedule</strong>
+        <p id="visitDate" style="margin:6px 0 0;"></p>
+        <p id="visitNote" style="margin:4px 0 0; color:var(--muted); font-size:13px;"></p>
+      </div>
+      <button class="btn-track" onclick="closeStatusPage()">Back to Site</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       ENQUIRY MODAL
+  =========================================== -->
+  <div class="enquiry-modal-overlay" id="enquiryModal">
+    <div class="enquiry-card">
+      <button class="enquiry-close" onclick="closeEnquiryModal()">&#x2715;</button>
+      <h3>Send an Enquiry</h3>
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" id="enqName" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label>Phone Number *</label>
+        <div class="phone-wrap">
+          <div class="phone-flag">&#x1F1EE;&#x1F1F3; +91</div>
+          <input type="tel" id="enqPhone" placeholder="10-digit number" maxlength="10" style="flex:1;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="enqEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Message (optional)</label>
+        <textarea id="enqMsg" rows="3" placeholder="Your enquiry..." style="width:100%;padding:9px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:13px;outline:none;resize:none;"></textarea>
+      </div>
+      <button class="btn-enquiry-submit" onclick="submitEnquiry()">Send Enquiry</button>
+      <div id="enqFeedback" class="auth-msg" style="display:none;margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       ENQUIRY FAB BUTTON
+  =========================================== -->
+  <button class="enquiry-fab" id="enquiryFab" onclick="openEnquiry()">
+    &#128172; Send Enquiry
+  </button>
+  
+
+  <!-- ==========================================
+       FOOTER (dynamic, from siteData)
+  =========================================== -->
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  
+  <footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-box">
+      <h1>Aims International School</h1>
+      <p class="footer-tagline">CBSE Affiliated institution focused on quality education</p>
+      <p class="footer-affiliation">Affiliation No.: 2131366</p>
+    </div>
+    
+    <div class="footer-box">
+      <h4>Quick Access</h4>
+      <div class="footer-links" id="footerLinks">
+        <!-- Links will be injected by JavaScript from siteData -->
+      </div>
+    </div>
+    
+    <div class="footer-box footer-contact">
+      <h4>Contact</h4>
+      <p>Lucknow, India</p>
+      <p>Email: Aimsinternationalsschool@gmail.com</p>
+      <p>Phone: +91 9235622947</p>
+    </div>
+  </div>
+  
+    
+    <!-- Designer Dropdown -->
+    <div class="designer-dropdown" id="designerDropdown">
+      <div class="designer-label" id="designerLabel">
+        <div class="designer-label-left">
+          <span>Designed by Prince Kumar</span>
+          <span>read more</span>
+        </div>
+        <svg class="designer-arrow" viewBox="0 0 24 24" fill="none">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+      <div class="designer-card">
+        <div class="designer-profile">
+          <img src="/IMG_20251231_185118.jpg" alt="Prince Kumar" class="designer-avatar" id="designerAvatar">
+          <div class="designer-info">
+            <div class="designer-name">Mr. Prince Kumar</div>
+            <div class="designer-email">princekumar@email.com</div>
+            <a href="#" class="designer-visit" id="designerWebsite">
+              Visit
+              <svg viewBox="0 0 24 24" fill="none">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+            <div class="designer-socials">
+              <a href="#" class="designer-social" id="designerFacebook" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+              </a>
+              <a href="#" class="designer-social" id="designerInstagram" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </a>
+              <a href="#" class="designer-social" id="designerLinkedin" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a href="#" class="designer-social" id="designerGithub" aria-label="GitHub">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
+  <div class="footer-bottom">
+    Aims International School | CBSE Affiliated
+  </div>
+  
+</footer>
+
+  <!-------------------------Scripts tag-->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+  <script src=""></script>
+  <script>
+  // This is a single-line comment
+const swiper = new Swiper('.mySwiper', {
+  loop: true,
+  
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
+  
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+});
+
+// This is a single-line comment
+
+  const hero = document.querySelector('.bg-hero');
+  const slides = document.querySelectorAll('.bg-slide');
+  
+  const total = slides.length;
+  
+  function applyLayout() {
+    hero.classList.remove('three', 'row');
+    
+    if (window.innerWidth >= 1024) {
+      if (total === 3) {
+        hero.classList.add('three');
+      } else {
+        hero.classList.add('row');
+      }
+    }
+  }
+  
+  applyLayout();
+  
+  window.addEventListener('resize', applyLayout);
+  
+  /* ===== MOBILE SLIDER ONLY ===== */
+  let current = 0;
+  let interval;
+  
+  function changeSlide() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }
+  
+  function isMobile() {
+    return window.innerWidth < 1024;
+  }
+  
+  function start() {
+    interval = setInterval(changeSlide, 3000);
+  }
+  
+  function stop() {
+    clearInterval(interval);
+  }
+  
+  if (isMobile()) {
+    start();
+  }
+  
+  window.addEventListener('resize', () => {
+    stop();
+    if (isMobile()) {
+      start();
+    }
+  });
+</script>
+<script data-name="the header site">
+
+// ===== CENTRAL SITE DATA (All links in ONE place) =====
+const siteData = {
+  // Main navigation pages
+  pages: [
+    { title: 'Home', url: '/Indexs/index.html' },
+    { title: 'About Us', url: '' },
+    { title: 'Admissions', url: 'admissions.html' },
+    { title: 'Academics', url: 'academics.html' },
+    { title: 'Events', url: 'events.html' },
+    { title: 'Gallery', url: 'gallery.html' },
+    { title: 'Contact', url: 'contact.html' },
+  ],
+  
+  // Resources for search
+  resources: [
+    { title: 'Fee Structure', url: 'fee-structure.html' },
+    { title: 'Admission Form', url: 'admission-form.html' },
+    { title: 'School Calendar 2026', url: 'calendar.html' },
+    { title: 'CBSE Curriculum', url: 'curriculum.html' },
+    { title: 'Sports Facilities', url: 'sports.html' },
+    { title: 'Smart Classrooms', url: 'smart-classrooms.html' },
+    { title: 'Qualified Teachers', url: 'teachers.html' },
+    { title: 'Modern Labs', url: 'labs.html' },
+  ],
+  
+  // Quick access links for footer (subset of pages)
+  quickAccess: ['Home', 'About Us', 'Admissions', 'Gallery', 'Contact']
+};
+
+// ===== GET CURRENT PAGE =====
+function getCurrentPage() {
+  const path = window.location.pathname;
+  const filename = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+  
+  const allPages = [...siteData.pages, ...siteData.resources];
+  const found = allPages.find(p => p.url === filename);
+  
+  return found ? found.title : 'Home';
+}
+
+// ===== GENERATE SEARCH DATA =====
+function getSearchData() {
+  const pages = siteData.pages.map(p => ({ ...p, type: 'page' }));
+  const resources = siteData.resources.map(r => ({ ...r, type: 'resource' }));
+  return [...pages, ...resources];
+}
+
+// ===== POPULATE MENU LINKS =====
+function populateMenu() {
+  const menuNav = document.getElementById('menuNav');
+  const currentPage = getCurrentPage();
+  
+  let html = '';
+  siteData.pages.forEach(page => {
+    const isActive = page.title === currentPage ? 'active' : '';
+    html += `<a href="${page.url}" class="menu-link ${isActive}" data-page="${page.title}">${page.title}</a>`;
+  });
+  
+  html += '<div class="menu-divider"></div>';
+  
+  // Add some resources to menu
+  siteData.resources.slice(0, 3).forEach(resource => {
+    html += `<a href="${resource.url}" class="menu-link" data-page="${resource.title}">${resource.title}</a>`;
+  });
+  
+  menuNav.innerHTML = html;
+}
+
+// ===== POPULATE FOOTER LINKS =====
+function populateFooter() {
+  const footerLinks = document.getElementById('footerLinks');
+  
+  let html = '';
+  siteData.quickAccess.forEach(title => {
+    const page = siteData.pages.find(p => p.title === title);
+    if (page) {
+      html += `<a href="${page.url}">${page.title}</a>`;
+    }
+  });
+  
+  footerLinks.innerHTML = html;
+}
+
+// ===== UPDATE BREADCRUMBS =====
+function updateBreadcrumbs(pageName) {
+  const breadcrumbs = document.getElementById('breadcrumbs');
+  
+  if (pageName === 'Home') {
+    breadcrumbs.innerHTML = '<span class="breadcrumb-current">Home</span>';
+  } else {
+    breadcrumbs.innerHTML = `
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-current">${pageName}</span>
+    `;
+  }
+}
+
+// ===== DOM ELEMENTS =====
+const searchBtn = document.getElementById('searchBtn');
+const searchOverlay = document.getElementById('searchOverlay');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const searchResultsList = document.getElementById('searchResultsList');
+const menuBtn = document.getElementById('menuBtn');
+const menuPanel = document.getElementById('menuPanel');
+
+// ===== SEARCH FUNCTIONALITY =====
+searchBtn.addEventListener('click', () => {
+  searchOverlay.classList.add('active');
+  searchInput.focus();
+  document.body.style.overflow = 'hidden';
+});
+
+// Close search on overlay click
+searchOverlay.addEventListener('click', (e) => {
+  if (e.target === searchOverlay) {
+    searchOverlay.classList.remove('active');
+    searchInput.value = '';
+    searchResults.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Search input handler
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase().trim();
+  const searchData = getSearchData();
+  
+  if (query.length < 1) {
+    searchResults.classList.remove('active');
+    return;
+  }
+  
+  const filtered = searchData.filter(item =>
+    item.title.toLowerCase().includes(query)
+  );
+  
+  if (filtered.length > 0) {
+    searchResultsList.innerHTML = filtered.map(item => `
+      <a href="${item.url}" class="search-result-item">
+        <div class="search-result-icon">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+        </div>
+        <div class="search-result-info">
+          <div class="search-result-title">${item.title}</div>
+          <div class="search-result-type">${item.type}</div>
+        </div>
+      </a>
+    `).join('');
+  } else {
+    searchResultsList.innerHTML = `
+      <div class="search-no-results">
+        No results found for "${e.target.value}"
+      </div>
+    `;
+  }
+  
+  searchResults.classList.add('active');
+});
+
+// ===== MENU FUNCTIONALITY =====
+menuBtn.addEventListener('click', () => {
+  const isOpen = menuPanel.classList.contains('active');
+  
+  if (isOpen) {
+    // Close menu
+    menuPanel.classList.remove('active');
+    menuBtn.classList.remove('menu-open');
+    document.body.style.overflow = '';
+  } else {
+    // Open menu
+    menuPanel.classList.add('active');
+    menuBtn.classList.add('menu-open');
+    document.body.style.overflow = 'hidden';
+  }
+});
+
+// Update breadcrumbs when clicking menu links
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('menu-link')) {
+    const pageName = e.target.dataset.page;
+    updateBreadcrumbs(pageName);
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (searchOverlay.classList.contains('active')) {
+      searchOverlay.classList.remove('active');
+      searchInput.value = '';
+      searchResults.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    if (menuPanel.classList.contains('active')) {
+      menuPanel.classList.remove('active');
+      menuBtn.classList.remove('menu-open');
+      document.body.style.overflow = '';
+    }
+  }
+});
+
+// ===== INITIALIZE ON PAGE LOAD =====
+document.addEventListener('DOMContentLoaded', () => {
+  populateMenu();
+  populateFooter();
+  updateBreadcrumbs(getCurrentPage());
+});
+</script>
+<script data-name="DESIGNER DROPDOWN ">
+  // ===== DESIGNER DROPDOWN =====
+  designerLabel.addEventListener('click', () => {
+    designerDropdown.classList.toggle('active');
+  });
+  
+  // Set designer data
+  document.getElementById('designerAvatar').src = siteData.designer.avatar;
+  document.getElementById('designerWebsite').href = siteData.designer.website;
+  document.getElementById('designerFacebook').href = siteData.designer.socials.facebook;
+  document.getElementById('designerInstagram').href = siteData.designer.socials.instagram;
+  document.getElementById('designerLinkedin').href = siteData.designer.socials.linkedin;
+  document.getElementById('designerGithub').href = siteData.designer.socials.github;
+  
+  // ===== PWA INSTALL =====
+  let deferredPrompt;
+  
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    pwaInstallCard.style.display = 'block';
+  });
+  
+  pwaInstallCard.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User ${outcome === 'accepted' ? 'accepted' : 'dismissed'} the install prompt`);
+      deferredPrompt = null;
+    }
+  });
+</script>
+ <script data-name="Oauth registration">
+    // =============================================
+    // SUPABASE INIT
+    // =============================================
+    const SUPABASE_URL = 'https://zdhrlwqwhyfhenkmsgir.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaHJsd3F3aHlmaGVua21zZ2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMDE5NjAsImV4cCI6MjA5MjY3Nzk2MH0.Q2oaAvvsHmpvj9VB3yv0aaXMIcqvGa6pzdNYAsLFV-c';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // =============================================
+    // CENTRAL SITE DATA — Edit links here ONCE
+    // Everything (menu, footer, search) reads from here
+    // =============================================
+    
+
+    // Build menu nav from siteData
+    const menuNav = document.getElementById('menuNav');
+    siteData.pages.forEach((item, i) => {
+      const a = document.createElement('a');
+      a.className = 'menu-link';
+      a.href = item.href;
+      a.innerHTML = `<span class="ml-icon">${item.icon}</span> ${item.label}`;
+      a.addEventListener('click', (e) => {
+        if (item.action === 'openRegModal') { e.preventDefault(); openRegModal(); closeMenu(); return; }
+        updateBreadcrumbs(item.label);
+        document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+        a.classList.add('active');
+        closeMenu();
+      });
+      if (i === 0) a.classList.add('active');
+      menuNav.appendChild(a);
+      if (i === 7) {
+        const div = document.createElement('div'); div.className = 'menu-divider'; menuNav.appendChild(div);
+        const lbl = document.createElement('div');
+        lbl.style.cssText = 'padding:6px 20px;font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;';
+        lbl.textContent = 'Resources'; menuNav.appendChild(lbl);
+      }
+    });
+    // AUTH — Supabase
+    // =============================================
+    let currentUser = null;
+
+    sb.auth.onAuthStateChange((event, session) => {
+      currentUser = session?.user ?? null;
+      updateMenuAccount();
+    });
+
+    async function doSignIn() {
+      const email = document.getElementById('siEmail').value.trim();
+      const pass = document.getElementById('siPassword').value;
+      showAuthMsg('siMsg', '', '');
+      const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+      if (error) { showAuthMsg('siMsg', error.message, 'error'); }
+      else { closeAuthModal(); showToast('Signed in successfully!'); }
+    }
+
+    async function doSignUp() {
+      const name = document.getElementById('suName').value.trim();
+      const email = document.getElementById('suEmail').value.trim();
+      const pass = document.getElementById('suPassword').value;
+      showAuthMsg('suMsg', '', '');
+      const { error } = await sb.auth.signUp({
+        email, password: pass,
+        options: {
+          data: { full_name: name },
+          emailRedirectTo: window.location.origin
+        }
+      });
+      if (error) { showAuthMsg('suMsg', error.message, 'error'); }
+      else { showAuthMsg('suMsg', 'Check your email to confirm your account!', 'success'); }
+    }
+
+    async function doGoogleAuth() {
+      await sb.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin+
+'Test index3.html' }
+      });
+    }
+
+    async function doSignOut() {
+      await sb.auth.signOut();
+      showToast('Signed out.');
+    }
+
+    function openAuthModal(tab) {
+      document.getElementById('authModal').classList.add('show');
+      switchAuthTab(tab || 'signin');
+    }
+    function closeAuthModal() { document.getElementById('authModal').classList.remove('show'); }
+
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach((t, i) => t.classList.toggle('active', (i === 0 && tab === 'signin') || (i === 1 && tab === 'signup')));
+      document.getElementById('signinForm').classList.toggle('active', tab === 'signin');
+      document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
+    }
+
+    function showAuthMsg(id, msg, type) {
+      const el = document.getElementById(id);
+      el.style.display = msg ? 'block' : 'none';
+      el.textContent = msg;
+      el.className = 'auth-msg ' + type;
+    }
+
+    function updateMenuAccount() {
+      const avatar = document.getElementById('menuAvatar');
+      const nameEl = document.getElementById('menuName');
+      const emailEl = document.getElementById('menuEmail');
+      const btns = document.getElementById('menuAuthBtns');
+
+      if (currentUser) {
+        const name = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || 'User';
+        const pic = currentUser.user_metadata?.avatar_url;
+        nameEl.textContent = name;
+        emailEl.textContent = currentUser.email;
+        avatar.innerHTML = pic ? `<img src="${pic}" alt="avatar">` : name[0].toUpperCase();
+        btns.innerHTML = `<button class="btn-menu-auth btn-signout" onclick="doSignOut()">Sign Out</button>`;
+      } else {
+        nameEl.textContent = 'Guest';
+        emailEl.textContent = 'Not signed in';
+        avatar.innerHTML = '?';
+        btns.innerHTML = `<button class="btn-menu-auth btn-signin" onclick="openAuthModal('signin')">Sign In / Sign Up</button>`;
+      }
+    }
+
+    // Close auth modal on outside click
+    document.getElementById('authModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('authModal')) closeAuthModal();
+    });
+
+    // =============================================
+    // REGISTRATION FORM
+    // =============================================
+    function generateRegId() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+      let id = 'AIMS';
+      for (let i = 0; i < 7; i++) id += chars[Math.floor(Math.random() * chars.length)];
+      return id;
+    }
+
+    function openRegModal() {
+      if (!currentUser) { openAuthModal('signin'); showToast('Please sign in to apply.'); return; }
+      const regId = generateRegId();
+      document.getElementById('regId').value = regId;
+      document.getElementById('regIdDisplay').textContent = 'Reg. ID: ' + regId;
+      document.getElementById('rGmail').value = currentUser.email || '';
+      document.getElementById('regModal').classList.add('show');
+    }
+
+    function closeRegModal() { document.getElementById('regModal').classList.remove('show'); }
+
+    document.getElementById('regModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('regModal')) closeRegModal();
+    });
+
+    function handleFileSelect(inputId, boxId, nameId) {
+      const file = document.getElementById(inputId).files[0];
+      if (file) { document.getElementById(nameId).textContent = file.name; }
+    }
+
+    async function uploadFile(file, bucket, path) {
+      if (!file) return null;
+      const { data, error } = await sb.storage.from(bucket).upload(path, file, { upsert: true });
+      if (error) { console.error('Upload error:', error); return null; }
+      return data.path;
+    }
+
+    async function submitRegistration(e) {
+      e.preventDefault();
+      const btn = document.getElementById('regSubmitBtn');
+      btn.disabled = true; btn.textContent = 'Submitting...';
+      const regId = document.getElementById('regId').value;
+      const uid = currentUser.id;
+
+      const photoFile = document.getElementById('rPhoto').files[0];
+      const tcFile = document.getElementById('rTC').files[0];
+      const msFile = document.getElementById('rMarksheet').files[0];
+
+      const photoPath = photoFile ? await uploadFile(photoFile, 'applicant-photos', `${uid}/${regId}_photo`) : null;
+      const tcPath = tcFile ? await uploadFile(tcFile, 'applicant-docs', `${uid}/${regId}_tc`) : null;
+      const msPath = msFile ? await uploadFile(msFile, 'applicant-docs', `${uid}/${regId}_marksheet`) : null;
+
+      const payload = {
+        registration_id: regId,
+        user_id: uid,
+        applicant_name: document.getElementById('rApplicantName').value,
+        gender: document.getElementById('rGender').value,
+        dob: document.getElementById('rDob').value,
+        mother_name: document.getElementById('rMotherName').value,
+        father_name: document.getElementById('rFatherName').value,
+        applied_class: document.getElementById('rClass').value,
+        residential_contact: '+91' + document.getElementById('rPhone').value,
+        alternate_contact: document.getElementById('rAltPhone').value ? '+91' + document.getElementById('rAltPhone').value : null,
+        gmail_address: document.getElementById('rGmail').value,
+        residence_address: document.getElementById('rAddress').value,
+        category: document.getElementById('rCategory').value,
+        religion: document.getElementById('rReligion').value,
+        applicant_photo_url: photoPath,
+        tc_dob_cert_url: tcPath,
+        prev_school_name: document.getElementById('rPrevSchool').value || null,
+        prev_school_class: document.getElementById('rPrevClass').value || null,
+        prev_passing_year: document.getElementById('rPrevYear').value || null,
+        prev_obtained_marks: document.getElementById('rPrevMarks').value || null,
+        prev_marksheet_url: msPath,
+        status: 'pending'
+      };
+
+      const { error } = await sb.from('registrations').insert(payload);
+      btn.disabled = false; btn.textContent = 'Submit Registration';
+
+      if (error) {
+        document.getElementById('regMsg').style.display = 'block';
+        document.getElementById('regMsg').textContent = 'Error: ' + error.message;
+        document.getElementById('regMsg').className = 'auth-msg error';
+      } else {
+        closeRegModal();
+        showStatusPage(regId);
+      }
+    }
+
+    // =============================================
+    // REGISTRATION STATUS
+    // =============================================
+    function showStatusPage(regId) {
+      document.getElementById('statusRegId').textContent = regId;
+      document.getElementById('statusIcon').textContent = '⏳';
+      document.getElementById('statusLabel').className = 'status-label pending';
+      document.getElementById('statusLabel').textContent = 'Pending Review';
+      document.getElementById('statusMsg').textContent = 'Your registration is under review by the school. You will be notified soon.';
+      document.getElementById('visitInfo').style.display = 'none';
+      document.getElementById('regStatusOverlay').classList.add('show');
+    }
+
+    function closeStatusPage() { document.getElementById('regStatusOverlay').classList.remove('show'); }
+
+    async function trackRegistration(regId) {
+      const { data, error } = await sb.from('registrations').select('*').eq('registration_id', regId).single();
+      if (error || !data) { showToast('Registration not found.'); return; }
+      showRegStatusFromData(data);
+    }
+
+    function showRegStatusFromData(data) {
+      document.getElementById('statusRegId').textContent = data.registration_id;
+      const status = data.status;
+      const overlay = document.getElementById('regStatusOverlay');
+      const lbl = document.getElementById('statusLabel');
+      const icon = document.getElementById('statusIcon');
+      const msg = document.getElementById('statusMsg');
+      const visitInfo = document.getElementById('visitInfo');
+
+      lbl.className = 'status-label ' + status;
+      if (status === 'approved') {
+        icon.textContent = '✅'; lbl.textContent = 'Approved';
+        msg.textContent = 'Congratulations! Your registration has been approved.';
+        if (data.visit_date) {
+          visitInfo.style.display = 'block';
+          document.getElementById('visitDate').textContent = 'Visit Date: ' + new Date(data.visit_date).toLocaleString('en-IN');
+          document.getElementById('visitNote').textContent = data.visit_note || '';
+        }
+      } else if (status === 'rejected') {
+        icon.textContent = '❌'; lbl.textContent = 'Not Available';
+        msg.textContent = 'Seats are not available. Thank you for your interest in Aims International School.';
+        visitInfo.style.display = 'none';
+      } else {
+        icon.textContent = '⏳'; lbl.textContent = 'Pending Review';
+        msg.textContent = 'Your registration is under review. Please check back later.';
+        visitInfo.style.display = 'none';
+      }
+      overlay.classList.add('show');
+    }
+
+    // =============================================
+    // ENQUIRY
+    // =============================================
+    function openEnquiry() {
+      if (currentUser) {
+        const name = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || '';
+        document.getElementById('enqName').value = name;
+        document.getElementById('enqEmail').value = currentUser.email || '';
+      }
+      document.getElementById('enquiryModal').classList.add('show');
+    }
+
+    function closeEnquiryModal() { document.getElementById('enquiryModal').classList.remove('show'); }
+
+    document.getElementById('enquiryModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('enquiryModal')) closeEnquiryModal();
+    });
+
+    async function submitEnquiry() {
+      const name = document.getElementById('enqName').value.trim();
+      const phone = document.getElementById('enqPhone').value.trim();
+      const email = document.getElementById('enqEmail').value.trim();
+      const msg = document.getElementById('enqMsg').value.trim();
+
+      if (!name || !phone || !email) { showEnqFeedback('Please fill all required fields.', 'error'); return; }
+
+      const { error } = await sb.from('enquiries').insert({
+        user_id: currentUser?.id || null,
+        full_name: name, phone: '+91' + phone, email, message: msg
+      });
+
+      if (error) { showEnqFeedback('Error: ' + error.message, 'error'); }
+      else { showEnqFeedback('Enquiry sent! We will contact you within 72 hours.', 'success'); setTimeout(closeEnquiryModal, 2000); }
+    }
+
+    function showEnqFeedback(msg, type) {
+      const el = document.getElementById('enqFeedback');
+      el.style.display = 'block'; el.textContent = msg;
+      el.className = 'auth-msg ' + type;
+    }
+
+    // =============================================
+    // SWIPER
+    // =============================================
+    new Swiper('.mySwiper', {
+      loop: true,
+      autoplay: { delay: 3000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true }
+    });
+
+    // =============================================
+    // BG HERO GALLERY
+    // =============================================
+    const bgHero = document.getElementById('bgHero');
+    const bgSlides = document.querySelectorAll('.bg-slide');
+    let bgCurrent = 0, bgInterval;
+
+    function applyBgLayout() {
+      bgHero.classList.remove('three','row');
+      if (window.innerWidth >= 1024) bgHero.classList.add(bgSlides.length === 3 ? 'three' : 'row');
+    }
+    applyBgLayout();
+    window.addEventListener('resize', () => { applyBgLayout(); stopBg(); if (window.innerWidth < 1024) startBg(); });
+
+    function changeBg() {
+      bgSlides[bgCurrent].classList.remove('active');
+      bgCurrent = (bgCurrent + 1) % bgSlides.length;
+      bgSlides[bgCurrent].classList.add('active');
+    }
+    function startBg() { bgInterval = setInterval(changeBg, 3000); }
+    function stopBg() { clearInterval(bgInterval); }
+
+    if (window.innerWidth < 1024) startBg();
+
+    // =============================================
+    // TOAST
+    // =============================================
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // =============================================
+    // ESC KEY
+    // =============================================
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAuthModal(); closeRegModal(); closeEnquiryModal(); closeMenu();
+        searchWrapper.classList.remove('open');
+        searchInput.value = ''; searchResults.innerHTML = ''; searchResults.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>

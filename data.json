@@ -1,0 +1,39 @@
+{
+    "institution_name": "AIMS International School / AIIMS",
+    "summary": "This data covers multiple independent schools (AIMS) and the premier medical institutes of India (AIIMS).",
+    "founding_details": {
+        "AIMS_Gonda_UP": {
+            "founded_year": 2006,
+            "founder": "Dr. Abhay Srivastava",
+            "managing_body": "Indian Literacy and Educational Society",
+            "building_info": "1 main school building on a 2-acre plot with 20 rooms"
+        },
+        "AIM_Ahmedabad_Gujarat": {
+            "founded_year": 2015,
+            "founder": "Shri Kanubhai Thakkar",
+            "managing_body": "Managing Trustee leadership"
+        },
+        "AIMS_Academy_Nepal": {
+            "founded_year": 1992
+        },
+        "AIIMS_Medical_Institutes": {
+            "visionary_founder": "Rajkumari Amrit Kaur (1956)",
+            "first_director": "Dr. B.B. Dikshit",
+            "total_campuses_india": 25,
+            "operational_status": "20 functional, 5 under development"
+        }
+    },
+    "branches_and_locations": [
+        {"district": "Gonda", "state": "Uttar Pradesh", "type": "AIMS School"},
+        {"district": "Bahraich", "state": "Uttar Pradesh", "type": "AIMS School"},
+        {"district": "Ahmedabad", "state": "Gujarat", "type": "AIMS School"},
+        {"district": "Attabira", "state": "Odisha", "type": "AIMS School"},
+        {"district": "Berhampur", "state": "Odisha", "type": "AIMS School"},
+        {"district": "Jaipur", "state": "Rajasthan", "type": "AIMS School"}
+    ],
+    "infrastructure_highlights": {
+        "AIMS_Gonda": "1 academic building, 20 rooms, 4 safety exits per floor",
+        "AIIMS_Kalyani_Example": "26 buildings total (10 institutional, 16 residential)",
+        "AIIMS_Delhi_Example": "Extensive medical complex and 21+ hostel buildings"
+    }
+}
